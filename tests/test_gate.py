@@ -1298,9 +1298,9 @@ def test_install_is_idempotent_and_protects_parent_and_submodules(
         ).read_bytes()
     owners = (root / gate.CODEOWNERS_PATH).read_text(encoding="utf-8").splitlines()
     assert owners == [
-        "/.github/ @EtharaOrion/research",
-        "/trinity @EtharaOrion/research",
-        "/.gitmodules @EtharaOrion/research",
+        "/.github/ @Aman4563",
+        "/trinity @Aman4563",
+        "/.gitmodules @Aman4563",
     ]
     assert first.repos == (
         "EtharaOrion/argos",

@@ -140,7 +140,7 @@ SABOTAGE_CODES: frozenset[str] = frozenset(
 
 TRINITY_DIR = "trinity"
 TRINITY_BRANCH = "main"
-CANONICAL_TRINITY_REMOTE = "https://github.com/EtharaOrion/trinity.git"
+CANONICAL_TRINITY_REMOTE = "https://github.com/Aman4563/stellar-trinity.git"
 CANONICAL_REMOTE_ENV = "TRINITY_CANONICAL_REMOTE"
 
 # Root report to the machine directory that must carry its signed disposition record.
