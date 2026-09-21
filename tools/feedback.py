@@ -2,6 +2,12 @@
 
 No checkpoint is exempt from enrolled signing, including genesis. Invoke by path:
 ``python3 ./trinity/tools/feedback.py append|checkpoint|walk ./ --help``.
+
+A chain captured before run namespaces existed lives at the harness root rather than under
+``<harness>/runs/<run_id>/``. It is frozen, because every new turn lands in a run, but the
+gate still walks it and still requires its head to be signed. ``checkpoint`` and ``walk``
+accept ``--legacy-root`` in place of ``--run`` to address that chain; ``append`` never does,
+because a new turn always belongs to a run.
 """
 
 from __future__ import annotations
@@ -40,13 +46,17 @@ LOGIN: Final = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?\Z")
 class Target:
     root: Path
     instrument: str
-    run_id: str
+    run_id: str | None
 
     @property
     def harness(self) -> str:
         return runs.HARNESS[self.instrument].removeprefix(".")
 
     def path(self, name: str) -> Path:
+        if self.run_id is None:
+            return resolve_project_path(
+                f"./{runs.HARNESS[self.instrument]}/{name}", project_root=self.root
+            )
         directory = runs.run_dir(self.root, self.instrument, self.run_id)
         return resolve_project_path(
             f"./{directory.relative_to(self.root).as_posix()}/{name}", project_root=self.root
@@ -62,7 +72,7 @@ def _text(path: Path) -> str:
 
 def _head(target: Target, *, genesis: bool = False) -> Head:
     chain_path = target.path(integrity.FEEDBACK_CHAIN)
-    ledger = _text(target.path(integrity.FEEDBACK_LEDGER))
+    ledger = None if target.run_id is None else _text(target.path(integrity.FEEDBACK_LEDGER))
     log = _text(target.path(integrity.FEEDBACK_CHECKPOINTS[target.harness]))
     signature = target.path("feedback-head.sig")
     if not chain_path.exists():
@@ -73,6 +83,8 @@ def _head(target: Target, *, genesis: bool = False) -> Head:
 
 
 def _append(target: Target, args: argparse.Namespace) -> Head:
+    if target.run_id is None:
+        raise FeedbackError("FEEDBACK_IDENTITY_UNRESOLVED", "a new turn always belongs to a run")
     if args.kind not in integrity.CHAIN_KINDS:
         raise FeedbackError("FEEDBACK_KIND_UNKNOWN", "kind is outside the closed vocabulary")
     if (
@@ -178,8 +190,8 @@ def _checkpoint(target: Target, args: argparse.Namespace) -> Head:
             raise FeedbackError(UNENROLLED, "key does not authenticate the enrolled principal")
     except (OSError, ValueError, SignatureBackendError) as exc:
         raise FeedbackError(UNENROLLED, "checkpoint signing or enrollment refused") from exc
-    target.path("run.json")
-    runs.open_run(target.root, target.instrument, target.run_id, principal=args.principal)
+    if target.run_id is not None:
+        runs.open_run(target.root, target.instrument, target.run_id, principal=args.principal)
     signature_path = target.path("feedback-head.sig")
     log = target.path(integrity.FEEDBACK_CHECKPOINTS[target.harness])
     prior = _text(log)
@@ -219,7 +231,16 @@ def main(argv: list[str]) -> int:
         sub = commands.add_parser(verb)
         sub.add_argument("root")
         sub.add_argument("--instrument", required=True, choices=tuple(runs.HARNESS))
-        sub.add_argument("--run", required=True)
+        if verb == "append":
+            sub.add_argument("--run", required=True)
+        else:
+            namespace = sub.add_mutually_exclusive_group(required=True)
+            namespace.add_argument("--run")
+            namespace.add_argument(
+                "--legacy-root",
+                action="store_true",
+                help="address the frozen pre-namespace chain at the harness root",
+            )
         sub.add_argument("--json", action="store_true", dest="as_json")
         if verb != "walk":
             sub.add_argument("--principal", required=True)
@@ -236,7 +257,7 @@ def main(argv: list[str]) -> int:
         return 0 if exc.code == 0 else 1
     try:
         root = resolve_project_path(args.root, project_root=invocation_root(), must_exist=True)
-        target = Target(root, args.instrument, args.run)
+        target = Target(root, args.instrument, getattr(args, "run", None))
         match args.command:
             case "append":
                 head = _append(target, args)

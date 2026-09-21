@@ -37,15 +37,23 @@ class Head:
     ledger: str
 
 
-def walk_documents(chain: str, ledger: str, log: str) -> Head:
+def walk_documents(chain: str, ledger: str | None, log: str) -> Head:
+    """Walk a chain, its ledger, and its checkpoint log to the head they agree on.
+
+    ``ledger`` is ``None`` only for a frozen pre-namespace chain at a harness root, whose
+    ledger was hand-written before the one-record-per-line grammar existed and whose record
+    digests therefore cannot be re-derived. The gate never re-derives them for any chain, so
+    holding that chain to the gate's own rule is compatibility rather than grandfathering.
+    """
+
     findings, head = integrity.walk_chain_document(Path(integrity.FEEDBACK_CHAIN), chain.encode())
     if findings or head is None:
         raise FeedbackError(BROKEN, "feedback chain failed the verifier walk")
     entries = [canonical.parse_json(line) for line in chain.splitlines() if line.strip()]
-    records = ledger.splitlines()
-    if len(records) != len(entries):
+    records = [] if ledger is None else ledger.splitlines()
+    if ledger is not None and len(records) != len(entries):
         raise FeedbackError(BROKEN, "ledger and chain lengths differ")
-    for row, entry in zip(records, entries, strict=True):
+    for row, entry in zip(records, entries, strict=ledger is not None):
         record = canonical.parse_json(row.removeprefix("- "))
         if not isinstance(record, dict) or not isinstance(entry, dict):
             raise FeedbackError(BROKEN, "ledger record is not an object")
@@ -66,4 +74,4 @@ def walk_documents(chain: str, ledger: str, log: str) -> Head:
     hashes = [entry["entry_hash"] for entry in entries if isinstance(entry, dict)]
     if roots and roots[-1] not in hashes:
         raise FeedbackError(ROLLED_BACK, "latest published checkpoint is outside this chain")
-    return Head(*head, chain, ledger)
+    return Head(*head, chain, ledger or "")

@@ -297,3 +297,112 @@ def test_append_refuses_damaged_history(
     assert parent.append() == 3
     assert code in capsys.readouterr().out
     assert {path.name: path.read_bytes() for path in parent.directory.iterdir()} == before
+
+
+# ---- frozen pre-namespace chains at the harness root -------------------------
+
+
+def legacy_root_chain(root: Path, harness: str) -> Path:
+    """A closed-schema chain at the harness root beside a hand-written YAML ledger."""
+
+    entry: dict[str, JSONValue] = {
+        "captured_at": STAMP,
+        "feedback_id": 1,
+        "kind": "contract_paste",
+        "prev_hash": "0" * 64,
+        "record_sha256": "8b" * 32,
+        "seq": 1,
+        "verbatim_sha256": hashlib.sha256(b"hello").hexdigest(),
+        "writer": "opencode/gpt@" + "a" * 40,
+        "github_id": "ada",
+    }
+    entry["entry_hash"] = integrity.chain_digest(dict(entry))
+    chain = root / harness / integrity.FEEDBACK_CHAIN
+    chain.parent.mkdir(parents=True, exist_ok=True)
+    chain.write_bytes(canonicalize(entry))
+    (root / harness / integrity.FEEDBACK_LEDGER).write_text(
+        "schema: engram.feedback/v1\nrecords:\n- feedback_id: 1\n  verbatim: |-\n    hello\n"
+    )
+    return chain
+
+
+@SIGNED
+def test_legacy_root_checkpoint_signs_the_frozen_chain_the_gate_walks(parent: Parent) -> None:
+    # Given a pre-namespace chain at the harness root whose YAML ledger predates the
+    # one-record-per-line grammar, so its record digests cannot be re-derived.
+    chain = legacy_root_chain(parent.root, ".memory")
+    key = write_feedback_trust(parent.root)
+    shutil.copyfile(key, parent.root / "key")
+    (parent.root / "key").chmod(0o600)
+    assert integrity.check_feedback_chain(str(parent.root), evaluation_time=NOW)
+    # When its head is signed through the legacy-root door.
+    code = main(
+        [
+            "feedback.py",
+            "checkpoint",
+            "./",
+            "--instrument",
+            "ENGRAM",
+            "--legacy-root",
+            "--principal",
+            "ada",
+            "--key",
+            "./key",
+            "--at",
+            STAMP,
+        ]
+    )
+    assert code == 0
+    # Then the checkpoint and signature land beside the chain, not under runs/, and the
+    # gate walks the parent clean; a later edit to the frozen chain is still refused.
+    assert (parent.root / ".memory" / "checkpoints.yaml").exists()
+    assert (parent.root / ".memory" / "feedback-head.sig").exists()
+    assert not (parent.directory / "checkpoints.yaml").exists()
+    assert not (parent.directory / "feedback-head.sig").exists()
+    assert integrity.check_feedback_chain(str(parent.root), evaluation_time=NOW) == []
+    assert main(["feedback.py", "walk", "./", "--instrument", "ENGRAM", "--legacy-root"]) == 0
+    chain.write_bytes(chain.read_bytes().replace(b'"seq":1', b'"seq":2'))
+    assert integrity.check_feedback_chain(str(parent.root), evaluation_time=NOW)
+    assert main(["feedback.py", "walk", "./", "--instrument", "ENGRAM", "--legacy-root"]) == 3
+
+
+def test_append_never_targets_the_legacy_root(parent: Parent) -> None:
+    # Given the append verb; when --legacy-root is offered; then argparse refuses it.
+    assert (
+        main(
+            [
+                "feedback.py",
+                "append",
+                "./",
+                "--instrument",
+                "ENGRAM",
+                "--legacy-root",
+                "--principal",
+                "ada",
+                "--kind",
+                "contract_paste",
+                "--github-id",
+                "ada",
+                "--reasoning-file",
+                "./r.json",
+            ]
+        )
+        == 1
+    )
+    assert not (parent.root / ".memory" / integrity.FEEDBACK_CHAIN).exists()
+
+
+def test_checkpoint_needs_exactly_one_namespace() -> None:
+    base = [
+        "feedback.py",
+        "checkpoint",
+        "./",
+        "--instrument",
+        "ENGRAM",
+        "--principal",
+        "ada",
+        "--key",
+        "./k",
+    ]
+    assert main(base) == 1
+    assert main([*base, "--run", "engram-ada-1", "--legacy-root"]) == 1

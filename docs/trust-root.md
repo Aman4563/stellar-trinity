@@ -63,6 +63,10 @@ A principal scoped to the attestation namespace alone signs commits this reposit
 
 Those two namespaces, `trinity.attestation.v1` and `git`, are the closed set `tools/attest/backend_ssh.py` accepts, and a backend constructed for any other namespace raises before a subprocess runs.
 
+## First enrolment
+
+The rotation ceremony below presumes a root already exists, and a parent birthed by genesis has none. Every feedback checkpoint must be signed by a principal bound to `feedback_checkpointer`, with no genesis exemption, so a parent with no root cannot sign its chain head at `seq` 1 and every instrument halts before Phase R. `python3 ./trinity/tools/enrol.py ./ --principal LOGIN --public-key PATH` writes the initial root for exactly one human and their software SSH public key: `roots.yaml` at version 1 binding that principal to `feedback_checkpointer` and `run_operator` at threshold 1, `allowed_signers` carrying the key under `namespaces="trinity.attestation.v1,git"`, and `trusted-root-version` at 1. It refuses a parent that already carries any of the three files, refuses a private key, a security key, or a certificate offered as the public key, and re-reads what it wrote through the same parser and authorization path the gate uses before it reports success. It mints no key and holds no secret. The release and clearance roles stay unbound, because each needs a second distinct principal by construction, and adding that principal, changing a role, or raising a threshold is a rotation under the procedure below and never a second enrolment. The human commits the three paths; nothing here stages or commits.
+
 ## Out-of-band rotation procedure
 
 Root rotation is a controlled ceremony performed outside the agents and outside attestation payloads. Store the last accepted version and root digest in durable trusted state before beginning. Never accept a root merely because it appears in the repository.

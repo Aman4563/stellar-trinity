@@ -33,6 +33,7 @@ def _bootstrap_direct_execution(module_name: str, package: str | None) -> None:
 _bootstrap_direct_execution(__name__, __package__)
 
 if TYPE_CHECKING:
+    from tools import migrate_feedback
     from tools.attest.canonical import parse_json
     from tools.bundle_identity import FileIdentity, manifest_digest, tree_manifest
     from tools.harbor import DEFAULT_ORG, migrate_text
@@ -45,6 +46,7 @@ if TYPE_CHECKING:
     )
 else:
     try:
+        from tools import migrate_feedback
         from tools.attest.canonical import parse_json
         from tools.bundle_identity import FileIdentity, manifest_digest, tree_manifest
         from tools.harbor import DEFAULT_ORG, migrate_text
@@ -56,6 +58,7 @@ else:
             resolve_project_path,
         )
     except ModuleNotFoundError:  # pragma: no cover - direct execution from tools/
+        import migrate_feedback
         from attest.canonical import parse_json
         from bundle_identity import FileIdentity, manifest_digest, tree_manifest
         from harbor import DEFAULT_ORG, migrate_text
@@ -786,6 +789,75 @@ def _plan_progress(
     return None, blocked, revalidate
 
 
+def _plan_feedback(
+    root: Path,
+    originals: dict[str, FileSnapshot | None] | None,
+    github_id: str | None,
+) -> tuple[list[PlannedWrite], list[str], list[str]]:
+    """Rewrite each legacy harness-root feedback chain into the closed line schema.
+
+    The chain is recomputed from its first line, so the step holds when a checkpoint log has
+    already published any head of the legacy chain, when the operator supplied no login to
+    attribute the rewritten lines to, or when the legacy bytes do not link on their own.
+    """
+
+    writes: list[PlannedWrite] = []
+    blocked: list[str] = []
+    revalidate: list[str] = []
+    for relative in migrate_feedback.CHAIN_PATHS:
+        try:
+            snapshot = _virtual_snapshot(root, relative, originals)
+        except MigrationError as exc:
+            blocked.append(str(exc))
+            continue
+        if snapshot is None:
+            continue
+        if not migrate_feedback.valid_login(github_id):
+            probe, reason = migrate_feedback.rewrite_legacy_chain(snapshot.data, "probe")
+            if probe is None and reason is None:
+                continue
+            blocked.append(
+                f"{relative}: legacy feedback chain needs the invoking human's GitHub login; "
+                "rerun with --feedback-github-id LOGIN"
+            )
+            continue
+        after, reason = migrate_feedback.rewrite_legacy_chain(snapshot.data, github_id or "")
+        if reason is not None:
+            blocked.append(f"{relative}: {reason}")
+            continue
+        if after is None:
+            continue
+        log_relative = migrate_feedback.CHECKPOINT_PATHS[relative]
+        try:
+            log = _virtual_snapshot(root, log_relative, originals)
+        except MigrationError as exc:
+            blocked.append(str(exc))
+            continue
+        published = migrate_feedback.checkpointed_roots(None if log is None else log.data)
+        if published:
+            blocked.append(
+                f"{relative}: {log_relative} already publishes a checkpoint over the legacy "
+                "chain; rewriting beneath a signed head is a rollback, so this needs a human "
+                "rotation rather than a migration"
+            )
+            continue
+        writes.append(
+            _planned_write(
+                root,
+                step_id=f"feedback-chain-github-id-{_digest(snapshot.data)[:16]}",
+                path=relative,
+                before=snapshot.data,
+                after=after,
+                originals=originals,
+            )
+        )
+        revalidate.append(
+            f"{relative}: legacy feedback chain rewritten into the closed schema and attributed "
+            f"to {github_id}; sign a fresh checkpoint over the new head with feedback.py"
+        )
+    return writes, blocked, revalidate
+
+
 def _schema_records(data: bytes, location: str) -> list[str]:
     """Detect discriminators only; this never authenticates or accepts evidence."""
     value = parse_json(data)
@@ -855,6 +927,7 @@ def _plan(
     reissues: tuple[str, ...] = (),
     *,
     apply_backups: bool = False,
+    feedback_github_id: str | None = None,
 ) -> tuple[list[PlannedWrite], list[str], list[str]]:
     writes: list[PlannedWrite] = []
     blocked: list[str] = []
@@ -911,6 +984,12 @@ def _plan(
     )
     blocked.extend(progress_blocked)
     revalidate.extend(progress_revalidation)
+    feedback_writes, feedback_blocked, feedback_revalidation = _plan_feedback(
+        root, originals, feedback_github_id
+    )
+    writes.extend(feedback_writes)
+    blocked.extend(feedback_blocked)
+    revalidate.extend(feedback_revalidation)
     if revalidate:
         existing_snapshot = _virtual_snapshot(root, REVALIDATION_FILE, originals)
         existing = None if existing_snapshot is None else existing_snapshot.data
@@ -1338,7 +1417,13 @@ def _journal_revalidation(root: Path, journal: Journal | None) -> tuple[str, ...
     return tuple(unresolved)
 
 
-def migrate(root: Path, *, dry_run: bool = False, trust_dir: str | None = None) -> MigrationReport:
+def migrate(
+    root: Path,
+    *,
+    dry_run: bool = False,
+    trust_dir: str | None = None,
+    feedback_github_id: str | None = None,
+) -> MigrationReport:
     """Plan or apply every supported migration beneath ``root``."""
 
     try:
@@ -1350,12 +1435,19 @@ def migrate(root: Path, *, dry_run: bool = False, trust_dir: str | None = None) 
         if journal is not None and journal["status"] != "complete":
             originals = _originals_from_journal(root, journal)
             writes, blocked, revalidation = _plan(
-                root, originals, reissues, apply_backups=not dry_run
+                root,
+                originals,
+                reissues,
+                apply_backups=not dry_run,
+                feedback_github_id=feedback_github_id,
             )
             _bind_incomplete_journal(journal, writes)
         else:
             writes, blocked, revalidation = _plan(
-                root, reissues=reissues, apply_backups=not dry_run
+                root,
+                reissues=reissues,
+                apply_backups=not dry_run,
+                feedback_github_id=feedback_github_id,
             )
     except (MigrationError, OSError, ValueError) as exc:
         return MigrationReport(
@@ -1467,6 +1559,10 @@ def _parser() -> argparse.ArgumentParser:
     mode.add_argument("--apply", action="store_true", help="apply; default is a read-only dry run")
     mode.add_argument("--check", action="store_true", help="inspect without writing")
     parser.add_argument("--trust-dir", help="external release trust directory, as for release.py")
+    parser.add_argument(
+        "--feedback-github-id",
+        help="GitHub login to attribute a legacy feedback chain to when rewriting it",
+    )
     parser.add_argument("--json", action="store_true")
     return parser
 
@@ -1493,7 +1589,12 @@ def main(argv: Sequence[str]) -> int:
     except ProjectPathError as exc:
         print(f"migration refused: {exc}", file=sys.stderr)
         return 2
-    report = migrate(root, dry_run=not args.apply, trust_dir=args.trust_dir)
+    report = migrate(
+        root,
+        dry_run=not args.apply,
+        trust_dir=args.trust_dir,
+        feedback_github_id=args.feedback_github_id,
+    )
     if args.json:
         public = report.to_json()
         public["changed"] = [
