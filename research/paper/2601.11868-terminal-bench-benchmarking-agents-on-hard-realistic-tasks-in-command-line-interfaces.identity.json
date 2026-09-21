@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2601.11868-terminal-bench-benchmarking-agents-on-hard-realistic-tasks-in-command-line-interfaces",
+  "retained": "2601.11868-terminal-bench-benchmarking-agents-on-hard-realistic-tasks-in-command-line-interfaces.pdf",
+  "rendering": "2601.11868-terminal-bench-benchmarking-agents-on-hard-realistic-tasks-in-command-line-interfaces.md",
+  "content_digest": "4430e04a507b2442bb7b24a88899b750948fa0a6b3bbc33a8d541d6d4debcc1e",
+  "rendering_digest": "24360f451a88565a01b100d515a03f45c73d7567f1746fc6e6fa6707e727e86a",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

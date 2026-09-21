@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2107.03374-evaluating-large-language-models-trained-on-code",
+  "retained": "2107.03374-evaluating-large-language-models-trained-on-code.pdf",
+  "rendering": "2107.03374-evaluating-large-language-models-trained-on-code.md",
+  "content_digest": "ebae72ea0e8a5eb2ecbccdb985aec6cc1254a7c4d29e6d4de7866db1e66c4855",
+  "rendering_digest": "5a0c1b43d420ef5916d7279b097dea482056a3164a8ae3ae000617d2243e0806",
+  "deriving_tool": "pdftotext",
+  "deriving_tool_version": "26.09.0"
+}

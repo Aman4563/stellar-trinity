@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2603.20899-mitigating-shortcut-reasoning-in-language-models-a-gradient-aware-training",
+  "retained": "2603.20899-mitigating-shortcut-reasoning-in-language-models-a-gradient-aware-training.pdf",
+  "rendering": "2603.20899-mitigating-shortcut-reasoning-in-language-models-a-gradient-aware-training.md",
+  "content_digest": "41ad4adc10ad0bba322ee4f1c0f7d8b87221f65c03792f59f287e4d1b6ea4d72",
+  "rendering_digest": "c3a16dcf48bbd1c94d2b2eb3c8db4dd26a7a025ee9a2353faeb37919caaed57e",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

@@ -1,0 +1,43 @@
+# Ownership is team based so review never depends on one person being available.
+# Every path has an owner. A path with no owner is a coverage gap, not a silence.
+#
+# GitHub silently ignores an entry naming a team it cannot resolve, which turns this
+# file into an inert required check. A team resolves only inside the organization that
+# owns the repository, so a slug from a sibling organization is ignored exactly like a
+# slug that does not exist. This repository is EtharaOrion/trinity, so every slug below
+# names an EtharaOrion team and each one is verified to exist there; the parallel teams
+# in Ethara-Ai govern that organization's repositories and are never owners here. When a
+# specialised team is created, change only the owner column of the rows it should hold;
+# the path structure already separates contracts, harness, supply chain, and research so
+# that split is a one line edit.
+
+* @EtharaOrion/research
+
+# The four contract documents are the product. A change here changes the
+# obligations of every project that vendors Trinity.
+
+/ENGRAM.md   @EtharaOrion/trinity
+/FORGE.md    @EtharaOrion/trinity
+/CRUCIBLE.md @EtharaOrion/trinity
+/README.md   @EtharaOrion/trinity
+
+# Attachments are subordinate to the contracts but still bind implementation.
+
+/specifications/ @EtharaOrion/trinity
+
+# The gate. A weakened rule here lets a downstream project pass an audit it
+# should fail, which is the primary threat named in SECURITY.md.
+
+/tools/ @EtharaOrion/trinity
+/tests/ @EtharaOrion/trinity
+
+# Supply chain surface. Action pins and dependency declarations.
+
+/.github/         @EtharaOrion/trinity
+/pyproject.toml   @EtharaOrion/trinity
+/uv.lock          @EtharaOrion/trinity
+/.python-version  @EtharaOrion/trinity
+
+# The shared research corpus is ENGRAM owned by contract.
+
+/research/ @EtharaOrion/trinity

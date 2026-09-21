@@ -1,0 +1,68 @@
+{
+  "families": {
+    "claude_code_jsonl": {"native": true, "strongest_outcome": "COVERED_CLEAN", "ceiling_refusal": null, "dispatch_to": null},
+    "openhands_events": {"native": true, "strongest_outcome": "COVERED_CLEAN", "ceiling_refusal": null, "dispatch_to": null},
+    "openhands_native_metrics": {"native": true, "strongest_outcome": "COVERED_CLEAN", "ceiling_refusal": null, "dispatch_to": null},
+    "cybergym_usage": {
+      "native": true, "strongest_outcome": "COVERED_CLEAN", "ceiling_refusal": null, "dispatch_to": null,
+      "requires": ["raw_agent_jsonl"],
+      "without_requires": {"strongest_outcome": "INSUFFICIENT_EVIDENCE", "ceiling_refusal": "FIDELITY_SELF_REPORTED_ONLY", "dispatch_to": null}
+    },
+    "atif_normalized": {
+      "native": false, "strongest_outcome": "INSUFFICIENT_EVIDENCE", "ceiling_refusal": "FIDELITY_TRACE_CONVERSION_ONLY", "dispatch_to": null,
+      "when_accompanied_by_native": {"strongest_outcome": "COVERED_CLEAN", "ceiling_refusal": null, "dispatch_to": "native_source_family"}
+    }
+  },
+  "pairs": {
+    "claude_code_jsonl": {
+      "COMPACTION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.COMPACTION; claude_code_jsonl scans isCompactSummary independently of coverage."},
+      "OBSERVATION_TRUNCATION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.OBSERVATION_TRUNCATION; coverage._observations compares each truncated result limit with authorization."},
+      "TURN_CAP": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TURN_CAP; limits.limit_findings rejects an unapproved max_turns."},
+      "TIMEOUT": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TIMEOUT; limits.limit_findings rejects a fired unapproved timeout_seconds."},
+      "PROVIDER_ERROR": {"reachable": true, "reason": "COVERAGE_CONTRACTS.PROVIDER_ERROR; coverage._provider retains captured non-2xx status_code."},
+      "REFUSAL": {"reachable": true, "reason": "COVERAGE_CONTRACTS.REFUSAL; coverage._refusal recognizes refusal stop_reason."},
+      "SETUP_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.SETUP_FAILURE; coverage._setup observes failed init or bootstrap."},
+      "HANDOFF_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.HANDOFF_FAILURE; coverage._handoff compares terminal digest with submission.json."}
+    },
+    "openhands_events": {
+      "COMPACTION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.COMPACTION; openhands_events recognizes Condensation with contiguous forgotten_event_ids."},
+      "OBSERVATION_TRUNCATION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.OBSERVATION_TRUNCATION; native events reach coverage._observations."},
+      "TURN_CAP": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TURN_CAP; native events reach limits.limit_findings."},
+      "TIMEOUT": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TIMEOUT; native events reach limits.limit_findings."},
+      "PROVIDER_ERROR": {"reachable": true, "reason": "COVERAGE_CONTRACTS.PROVIDER_ERROR; native events reach coverage._provider."},
+      "REFUSAL": {"reachable": true, "reason": "COVERAGE_CONTRACTS.REFUSAL; native events reach coverage._refusal."},
+      "SETUP_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.SETUP_FAILURE; native events reach coverage._setup."},
+      "HANDOFF_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.HANDOFF_FAILURE; native events reach coverage._handoff with submission.json."}
+    },
+    "openhands_native_metrics": {
+      "COMPACTION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.COMPACTION; accompanying events delegate to openhands_events Condensation path."},
+      "OBSERVATION_TRUNCATION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.OBSERVATION_TRUNCATION; accompanying native events delegate to coverage._observations."},
+      "TURN_CAP": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TURN_CAP; accompanying events delegate to limits.limit_findings."},
+      "TIMEOUT": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TIMEOUT; accompanying events delegate to limits.limit_findings."},
+      "PROVIDER_ERROR": {"reachable": true, "reason": "COVERAGE_CONTRACTS.PROVIDER_ERROR; accompanying native events delegate to coverage._provider."},
+      "REFUSAL": {"reachable": true, "reason": "COVERAGE_CONTRACTS.REFUSAL; accompanying native events delegate to coverage._refusal."},
+      "SETUP_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.SETUP_FAILURE; accompanying native events delegate to coverage._setup."},
+      "HANDOFF_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.HANDOFF_FAILURE; accompanying native events delegate to coverage._handoff."}
+    },
+    "cybergym_usage": {
+      "COMPACTION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.COMPACTION; raw agent.jsonl delegates to claude_code_jsonl isCompactSummary path."},
+      "OBSERVATION_TRUNCATION": {"reachable": true, "reason": "COVERAGE_CONTRACTS.OBSERVATION_TRUNCATION; raw agent.jsonl delegates to coverage._observations."},
+      "TURN_CAP": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TURN_CAP; raw agent.jsonl delegates to limits.limit_findings."},
+      "TIMEOUT": {"reachable": true, "reason": "COVERAGE_CONTRACTS.TIMEOUT; raw agent.jsonl delegates to limits.limit_findings."},
+      "PROVIDER_ERROR": {"reachable": true, "reason": "COVERAGE_CONTRACTS.PROVIDER_ERROR; raw agent.jsonl delegates to coverage._provider."},
+      "REFUSAL": {"reachable": true, "reason": "COVERAGE_CONTRACTS.REFUSAL; raw agent.jsonl delegates to coverage._refusal."},
+      "SETUP_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.SETUP_FAILURE; raw agent.jsonl delegates to coverage._setup."},
+      "HANDOFF_FAILURE": {"reachable": true, "reason": "COVERAGE_CONTRACTS.HANDOFF_FAILURE; raw agent.jsonl delegates to coverage._handoff."}
+    },
+    "atif_normalized": {
+      "COMPACTION": {"reachable": true, "reason": "atif_normalized.contains_marker retains positive continuation evidence; no native COVERAGE_CONTRACTS row."},
+      "OBSERVATION_TRUNCATION": {"reachable": false, "reason": "No native coverage contract; ATIF alone scans only the continuation marker, not observation records."},
+      "TURN_CAP": {"reachable": false, "reason": "No native coverage contract; ATIF alone does not call limit_findings."},
+      "TIMEOUT": {"reachable": false, "reason": "No native coverage contract; ATIF alone does not call limit_findings."},
+      "PROVIDER_ERROR": {"reachable": false, "reason": "No native coverage contract; ATIF alone cannot express a captured provider-error record."},
+      "REFUSAL": {"reachable": false, "reason": "No native coverage contract; ATIF alone does not scan stop_reason refusal vocabulary."},
+      "SETUP_FAILURE": {"reachable": false, "reason": "No native coverage contract; ATIF alone does not scan bootstrap status records."},
+      "HANDOFF_FAILURE": {"reachable": false, "reason": "No native coverage contract; ATIF alone does not compare final submission identities."}
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "trinity.harness-config/v1",
+  "harnessName": "claude-code",
+  "harnessVersion": "2.1.159",
+  "modelId": "anthropic/claude-opus-5",
+  "modelSnapshot": "claude-opus-5-20260901",
+  "adapter": "claude-code",
+  "bridgeEndpointClass": "direct",
+  "contextWindowTokens": 200000,
+  "maxOutputTokens": 200000,
+  "compactionPolicy": {
+    "enabled": false,
+    "trigger": "none",
+    "thresholdTokens": 168000
+  },
+  "observationTruncation": {
+    "maxMessageChars": 30000,
+    "maxObservationChars": 60000
+  },
+  "maxTurns": 300,
+  "maxIterations": 200,
+  "toolCallCap": 1000,
+  "wallClockTimeoutSeconds": 3600,
+  "temperature": 1.0,
+  "topP": 1.0,
+  "seed": 42,
+  "systemPromptDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "sandbox": {
+    "cpuMillicores": 2000,
+    "memoryBytes": 8589934592
+  },
+  "networkPolicy": "restricted",
+  "retryPolicy": {
+    "maxRetries": 4,
+    "retryOnStatus": [
+      429,
+      500,
+      503
+    ]
+  },
+  "reasoningEffort": "high",
+  "condenserConfig": {
+    "type": "none",
+    "enabled": false
+  },
+  "configurationAdequacy": {
+    "approvedBy": "operator",
+    "approvalSource": "requirements",
+    "headroomArgument": "168000 tokens of headroom declared against a 300-turn budget.",
+    "approvedAt": "2026-09-18T00:00:00Z"
+  }
+}

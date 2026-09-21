@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2604.11544-time-is-not-a-label-continuous-phase-rotation-for-temporal",
+  "retained": "2604.11544-time-is-not-a-label-continuous-phase-rotation-for-temporal.pdf",
+  "rendering": "2604.11544-time-is-not-a-label-continuous-phase-rotation-for-temporal.md",
+  "content_digest": "914b24d01814f9b8ed4c8c7c146edcf16de45fa74c5914d0981bc183add330d9",
+  "rendering_digest": "a72e4e3673de5bda71003f5e4fedc05e23437048d36b14088a9e64fb9538f492",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.18284-breaking-the-solver-bottleneck-training-task-generators-at-the-learnable",
+  "retained": "2606.18284-breaking-the-solver-bottleneck-training-task-generators-at-the-learnable.pdf",
+  "rendering": "2606.18284-breaking-the-solver-bottleneck-training-task-generators-at-the-learnable.md",
+  "content_digest": "d50cc54f7463145a3aa730635351fdd131b9ae083c00dd562b64ea43284259f2",
+  "rendering_digest": "3f07c7c5a92b34a44f9795cf463de4fd9e0fa169a0b77b192e16f67793a10b60",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

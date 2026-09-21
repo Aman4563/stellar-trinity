@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2604.15302-diagnosing-llm-judge-reliability-conformal-prediction-sets-and-transitivity-violations",
+  "retained": "2604.15302-diagnosing-llm-judge-reliability-conformal-prediction-sets-and-transitivity-violations.pdf",
+  "rendering": "2604.15302-diagnosing-llm-judge-reliability-conformal-prediction-sets-and-transitivity-violations.md",
+  "content_digest": "fcd2c0245491df8eb9bfd869cebc52f29b5945019bc8799701f9e8e07d7eeef4",
+  "rendering_digest": "39abc70eaf84e04a341767cc3ceaf94686cbabc959bf65d92511ef7a3cd3c3f5",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

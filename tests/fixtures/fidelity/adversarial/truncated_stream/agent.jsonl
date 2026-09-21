@@ -1,0 +1,3 @@
+{"type":"system","subtype":"init","status":"success","index":0,"session_id":"synthetic-session","capture_profile":"trinity.native-capture/v1","max_message_chars":100}
+{"type":"bootstrap","bootstrap_id":"synthetic-env","status":"success","index":1,"session_id":"synthetic-session"}
+{"type":"provider_request","index":2,"session_id":"synthetic-session","request_id":"synthetic-request

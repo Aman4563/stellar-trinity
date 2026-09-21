@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2506.12034-human-like-forgetting-curves-in-deep-neural-networks",
+  "retained": "2506.12034-human-like-forgetting-curves-in-deep-neural-networks.pdf",
+  "rendering": "2506.12034-human-like-forgetting-curves-in-deep-neural-networks.md",
+  "content_digest": "8d5d2701d40f34587d7c40b597c628444b49a812b82626feb31875bdc20a84b8",
+  "rendering_digest": "58ab2d4e507d749d10d771a4d208604174c9572b2fd7034a239aff93eaff229c",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

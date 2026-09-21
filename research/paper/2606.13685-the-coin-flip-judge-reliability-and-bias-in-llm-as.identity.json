@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.13685-the-coin-flip-judge-reliability-and-bias-in-llm-as",
+  "retained": "2606.13685-the-coin-flip-judge-reliability-and-bias-in-llm-as.pdf",
+  "rendering": "2606.13685-the-coin-flip-judge-reliability-and-bias-in-llm-as.md",
+  "content_digest": "d022715ff32d8296e3b8ecc984e3e7c87f02b7f361d0c99a0e235e821e3fb885",
+  "rendering_digest": "6085fa5f2bf5733a845901791d04ebad9d0b317e561f25b0b2d77b7a9f724c19",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

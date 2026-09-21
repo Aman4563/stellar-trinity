@@ -1,0 +1,1 @@
+{"schema_version":"1.8","session_id":"synthetic-session","agent":{"model_name":"synthetic-model","version":"2.1.158"},"steps":[{"step_id":1,"source":"assistant","request_id":"synthetic-request","stop_reason":"end_turn"},{"step_id":2,"source":"tool","tool_result_id":"synthetic-observation"}]}

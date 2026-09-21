@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.07616-item-response-scaling-laws-a-measurement-theory-approach-for-efficient",
+  "retained": "2606.07616-item-response-scaling-laws-a-measurement-theory-approach-for-efficient.pdf",
+  "rendering": "2606.07616-item-response-scaling-laws-a-measurement-theory-approach-for-efficient.md",
+  "content_digest": "5f04cb80bea301d4d64dc2b2236d2d66f81b5d3c2c9a2500a709f20478f2a8b0",
+  "rendering_digest": "ee4502e5a1d930f0c3db994e07d43c657281a5e8a40c6032184c3f6e9c999f10",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

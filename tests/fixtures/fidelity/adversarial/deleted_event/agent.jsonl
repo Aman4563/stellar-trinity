@@ -1,0 +1,6 @@
+{"type":"system","subtype":"init","status":"success","index":0,"session_id":"synthetic-session","capture_profile":"trinity.native-capture/v1","max_message_chars":100}
+{"type":"bootstrap","bootstrap_id":"synthetic-env","status":"success","index":1,"session_id":"synthetic-session"}
+{"type":"provider_request","request_id":"synthetic-request","status_code":200,"index":2,"session_id":"synthetic-session"}
+{"type":"assistant","request_id":"synthetic-request","stop_reason":"end_turn","index":3,"session_id":"synthetic-session"}
+{"type":"tool_result","tool_result_id":"synthetic-observation","truncated":false,"index":5,"session_id":"synthetic-session"}
+{"type":"result","stop_reason":"timeout","submission_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bootstrap_ids":["synthetic-env"],"request_ids":["synthetic-request"],"tool_result_ids":["synthetic-observation"],"max_turns":4,"turns":4,"timed_out":true,"timeout_seconds":60,"elapsed_seconds":60,"index":6,"session_id":"synthetic-session"}

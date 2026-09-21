@@ -1,0 +1,142 @@
+# Install only in a governance-controlled publisher repository. Never copy this workflow into a
+# candidate parent or samples repository.
+name: external-release-gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_repository:
+        description: owner/name of the parent candidate
+        required: true
+        type: string
+      candidate_repository_id:
+        description: immutable numeric GitHub repository id expected by governance
+        required: true
+        type: string
+      candidate_sha:
+        description: full immutable parent candidate commit
+        required: true
+        type: string
+      samples_repository:
+        description: optional owner/name export repository
+        required: false
+        type: string
+      samples_repository_id:
+        description: immutable numeric export repository id when samples_repository is set
+        required: false
+        type: string
+      samples_sha:
+        description: full immutable export commit when samples_repository is set
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    environment: release-governance
+    steps:
+      - name: Require governance-owned pins
+        shell: bash
+        env:
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          EXPECTED_PROJECT_ID: ${{ vars.TRINITY_EXPECTED_PROJECT_ID }}
+          SAMPLES_REPOSITORY: ${{ inputs.samples_repository }}
+          SAMPLES_REPOSITORY_ID: ${{ inputs.samples_repository_id }}
+          SAMPLES_SHA: ${{ inputs.samples_sha }}
+          VERIFIER_REPOSITORY: ${{ vars.TRINITY_VERIFIER_REPOSITORY }}
+          VERIFIER_SHA: ${{ vars.TRINITY_VERIFIER_SHA }}
+          TRUST_REPOSITORY: ${{ vars.TRINITY_RELEASE_TRUST_REPOSITORY }}
+          TRUST_SHA: ${{ vars.TRINITY_RELEASE_TRUST_SHA }}
+        run: |
+          [[ "$CANDIDATE_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          [[ "$VERIFIER_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          [[ "$TRUST_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          test -n "$EXPECTED_PROJECT_ID" || exit 1
+          test -n "$VERIFIER_REPOSITORY" && test -n "$TRUST_REPOSITORY" || exit 1
+          if [ -n "$SAMPLES_REPOSITORY" ]; then
+            [[ "$SAMPLES_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 1
+            test -n "$SAMPLES_REPOSITORY_ID" || exit 1
+          fi
+
+      - name: Resolve immutable repository identities through GitHub API
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GOVERNANCE_READ_TOKEN }}
+          CANDIDATE_REPOSITORY: ${{ inputs.candidate_repository }}
+          CANDIDATE_REPOSITORY_ID: ${{ inputs.candidate_repository_id }}
+          EXPECTED_PARENT_REPOSITORY_ID: ${{ vars.TRINITY_EXPECTED_PARENT_REPOSITORY_ID }}
+          SAMPLES_REPOSITORY: ${{ inputs.samples_repository }}
+          SAMPLES_REPOSITORY_ID: ${{ inputs.samples_repository_id }}
+          EXPECTED_SAMPLES_REPOSITORY_ID: ${{ vars.TRINITY_EXPECTED_SAMPLES_REPOSITORY_ID }}
+        run: |
+          test -n "$EXPECTED_PARENT_REPOSITORY_ID" || exit 1
+          test "$CANDIDATE_REPOSITORY_ID" = "$EXPECTED_PARENT_REPOSITORY_ID" || exit 1
+          test "$(gh api "repos/$CANDIDATE_REPOSITORY" --jq .id)" = "$CANDIDATE_REPOSITORY_ID" || exit 1
+          if [ -n "$SAMPLES_REPOSITORY" ]; then
+            test -n "$EXPECTED_SAMPLES_REPOSITORY_ID" || exit 1
+            test "$SAMPLES_REPOSITORY_ID" = "$EXPECTED_SAMPLES_REPOSITORY_ID" || exit 1
+            test "$(gh api "repos/$SAMPLES_REPOSITORY" --jq .id)" = "$SAMPLES_REPOSITORY_ID" || exit 1
+          fi
+
+      - name: Check out candidate as data
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ inputs.candidate_repository }}
+          ref: ${{ inputs.candidate_sha }}
+          token: ${{ secrets.GOVERNANCE_READ_TOKEN }}
+          persist-credentials: false
+          fetch-depth: 0
+          submodules: recursive
+          path: ./candidate-data
+
+      - name: Check out independently pinned verifier
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ vars.TRINITY_VERIFIER_REPOSITORY }}
+          ref: ${{ vars.TRINITY_VERIFIER_SHA }}
+          token: ${{ secrets.GOVERNANCE_READ_TOKEN }}
+          persist-credentials: false
+          fetch-depth: 1
+          path: ./verifier
+
+      - name: Check out independently pinned release trust
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ vars.TRINITY_RELEASE_TRUST_REPOSITORY }}
+          ref: ${{ vars.TRINITY_RELEASE_TRUST_SHA }}
+          token: ${{ secrets.GOVERNANCE_READ_TOKEN }}
+          persist-credentials: false
+          fetch-depth: 1
+          path: ./release-trust
+
+      - name: Optionally check out export as data
+        if: inputs.samples_repository != ''
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ inputs.samples_repository }}
+          ref: ${{ inputs.samples_sha }}
+          token: ${{ secrets.GOVERNANCE_READ_TOKEN }}
+          persist-credentials: false
+          fetch-depth: 1
+          path: ./export-data
+
+      - name: Run only independently pinned verifier code
+        shell: bash
+        env:
+          TRINITY_RELEASE_TRUST_DIR: ./release-trust
+          EXPECTED_PROJECT_ID: ${{ vars.TRINITY_EXPECTED_PROJECT_ID }}
+          EXPECTED_PARENT_REPOSITORY_ID: ${{ vars.TRINITY_EXPECTED_PARENT_REPOSITORY_ID }}
+          EXPECTED_VERIFIER_SHA: ${{ vars.TRINITY_VERIFIER_SHA }}
+          SAMPLES_REPOSITORY: ${{ inputs.samples_repository }}
+        run: |
+          test "$(git -C ./verifier rev-parse HEAD)" = "${{ vars.TRINITY_VERIFIER_SHA }}" || exit 1
+          test "$(git -C ./release-trust rev-parse HEAD)" = "${{ vars.TRINITY_RELEASE_TRUST_SHA }}" || exit 1
+          test "$(git -C ./candidate-data rev-parse HEAD)" = "${{ inputs.candidate_sha }}" || exit 1
+          if [ -n "$SAMPLES_REPOSITORY" ]; then
+            python3 -I -c 'import runpy,sys; sys.path.insert(0,"./verifier"); sys.argv=["release.py",*sys.argv[1:]]; runpy.run_path("./verifier/tools/release.py",run_name="__main__")' ./candidate-data --export ./export-data --expected-project-id "$EXPECTED_PROJECT_ID" --expected-repository-id "$EXPECTED_PARENT_REPOSITORY_ID" --expected-verifier-sha "$EXPECTED_VERIFIER_SHA"
+          else
+            python3 -I -c 'import runpy,sys; sys.path.insert(0,"./verifier"); sys.argv=["release.py",*sys.argv[1:]]; runpy.run_path("./verifier/tools/release.py",run_name="__main__")' ./candidate-data --expected-project-id "$EXPECTED_PROJECT_ID" --expected-repository-id "$EXPECTED_PARENT_REPOSITORY_ID" --expected-verifier-sha "$EXPECTED_VERIFIER_SHA"
+          fi

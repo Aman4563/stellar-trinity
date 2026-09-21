@@ -1,0 +1,23 @@
+{
+  "artifact": "trinity-case-study-delivery-dispositions",
+  "version": "1.0.0",
+  "source": "POSTMORTEM.md sections 2 and 3, committed 2026-09-16 (commit 07aca95); CHANGELOG.md scribe block dated 2026-09-17 records this source set",
+  "caption": "Last-recorded parent dispositions in the postmortem, not a pre-delivery snapshot. The task column totals 40: the initial 30 plus 10 later argos tasks on 2026-09-15. The assessment scope remains 30 tasks across 10 repositories and 336 rollouts",
+  "evidence_class": "attested-only",
+  "integrity_note": "Rows transcribe the dated postmortem table one parent per row. The table includes later activity and does not prove dispositions before the initial delivery. study/exhibits/regenerate.py renders Exhibit 3 from this input, including its caption, and recomputes summary counts. Shipped tasks and assessment tasks describe different populations; the arithmetic does not independently verify the attested-only account.",
+  "delivery_date": "2026-09-07",
+  "assessment_received": "2026-09-16",
+  "assessment_scope": {"repos": 10, "tasks": 30, "vendor_rollouts": 336},
+  "parents": [
+    {"parent": "argos", "disposition": "BLOCK", "detail": "CRUCIBLE BLOCK, twelve inert instruments; FORGE BLOCK:INVALID_TASK; 3 initial tasks plus 10 added 2026-09-15", "shipped_tasks": 13},
+    {"parent": "teresa", "disposition": "HOLD", "detail": "HOLD:PILOT_REQUIRED; regeneration unmeasured; no rollout surface", "shipped_tasks": 3},
+    {"parent": "deku", "disposition": "STALE", "detail": "STALE; no signed proof ever landed", "shipped_tasks": 3},
+    {"parent": "anubis", "disposition": "HOLD", "detail": "HOLD:PILOT_REQUIRED; 212 uncommitted paths under samples/; calibration check reporting a false pass", "shipped_tasks": 3},
+    {"parent": "yuji", "disposition": "BROKEN", "detail": "BROKEN; BLOCK:INVALID_TASK provenance-invalid; external pilot not run", "shipped_tasks": 3},
+    {"parent": "kakashi", "disposition": "HOLD", "detail": "HOLD:PILOT_REQUIRED; forge view unresolvable", "shipped_tasks": 3},
+    {"parent": "kanao", "disposition": "BLOCK", "detail": "BLOCK:INVALID_TASK, 36 coverage gaps", "shipped_tasks": 3},
+    {"parent": "thanatos", "disposition": "HOLD", "detail": "HOLD; 8 of 31 instruments built; no scanner ran; vacuous on all 24 runs", "shipped_tasks": 3},
+    {"parent": "levi", "disposition": "SHIP", "detail": "SHIP on a standing typed project-lead acceptance in SIGNOFF.md dated 2026-09-07", "shipped_tasks": 3},
+    {"parent": "envora", "disposition": "SHIP", "detail": "CRUCIBLE SHIP over a folder outside the layout; FORGE BLOCK:INVALID_TASK", "shipped_tasks": 3}
+  ]
+}

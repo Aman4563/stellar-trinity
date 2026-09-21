@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.19544-reliability-without-validity-a-systematic-large-scale-evaluation-of-llm",
+  "retained": "2606.19544-reliability-without-validity-a-systematic-large-scale-evaluation-of-llm.pdf",
+  "rendering": "2606.19544-reliability-without-validity-a-systematic-large-scale-evaluation-of-llm.md",
+  "content_digest": "faacf577921eab7a38f1a7b04899b6db5acbb17434ff78cb8f9f25e3b87f3230",
+  "rendering_digest": "50f26c058d7e4ae8c91b82c4094f42fc5f153e29f64b6f3e715a52dd828f67f5",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

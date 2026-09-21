@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.12087-fort-searcher-synthesizing-shortcut-resistant-search-tasks-for-training-deep",
+  "retained": "2606.12087-fort-searcher-synthesizing-shortcut-resistant-search-tasks-for-training-deep.pdf",
+  "rendering": "2606.12087-fort-searcher-synthesizing-shortcut-resistant-search-tasks-for-training-deep.md",
+  "content_digest": "c3fe450e5ba24166d7ac9741b039ed5937aa219165d15305c9b71a838597b44b",
+  "rendering_digest": "970d3c014cf9a0af4e79027c442f39f4a3d93e24dd710ddf738b1bf642070acd",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

@@ -1,0 +1,340 @@
+[
+  {
+    "info": {
+      "cost": 0,
+      "directory": "[redacted:session-directory:ses_meterroot00000000000000000]",
+      "id": "ses_meterroot00000000000000000",
+      "projectID": "global",
+      "time": {
+        "created": 1770290999000,
+        "updated": 1770291029000
+      },
+      "title": "[redacted:session-title:ses_meterroot00000000000000000]",
+      "tokens": {
+        "cache": {
+          "read": 60000,
+          "write": 0
+        },
+        "input": 3000,
+        "output": 300,
+        "reasoning": 3
+      },
+      "version": "1.1.51"
+    },
+    "messages": [
+      {
+        "info": {
+          "id": "msg_meterprompt000000000000000",
+          "role": "user",
+          "sessionID": "ses_meterroot00000000000000000",
+          "time": {
+            "created": 1770290999001
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterprompt000000000000000",
+            "messageID": "msg_meterprompt000000000000000",
+            "sessionID": "ses_meterroot00000000000000000",
+            "text": "[redacted:text:prt_meterprompt000000000000000]",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "info": {
+          "cost": 0,
+          "finish": "stop",
+          "id": "msg_meterreply0000000000000000",
+          "modelID": "big-pickle",
+          "parentID": "msg_meterprompt000000000000000",
+          "providerID": "opencode",
+          "role": "assistant",
+          "sessionID": "ses_meterroot00000000000000000",
+          "time": {
+            "completed": 1770290999008,
+            "created": 1770290999002
+          },
+          "tokens": {
+            "cache": {
+              "read": 20000,
+              "write": 0
+            },
+            "input": 1000,
+            "output": 100,
+            "reasoning": 1
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterreply0000000000000000",
+            "messageID": "msg_meterreply0000000000000000",
+            "sessionID": "ses_meterroot00000000000000000",
+            "text": "[redacted:text:prt_meterreply0000000000000000]",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "info": {
+          "cost": 0,
+          "finish": "stop",
+          "id": "msg_meterreply0100000000000000",
+          "modelID": "big-pickle",
+          "parentID": "msg_meterprompt000000000000000",
+          "providerID": "opencode",
+          "role": "assistant",
+          "sessionID": "ses_meterroot00000000000000000",
+          "time": {
+            "completed": 1770290999009,
+            "created": 1770290999003
+          },
+          "tokens": {
+            "cache": {
+              "read": 40000,
+              "write": 0
+            },
+            "input": 2000,
+            "output": 200,
+            "reasoning": 2
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterreply0100000000000000",
+            "messageID": "msg_meterreply0100000000000000",
+            "sessionID": "ses_meterroot00000000000000000",
+            "text": "[redacted:text:prt_meterreply0100000000000000]",
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "info": {
+      "cost": 0,
+      "directory": "[redacted:session-directory:ses_meterlanea0000000000000000]",
+      "id": "ses_meterlanea0000000000000000",
+      "parentID": "ses_meterroot00000000000000000",
+      "projectID": "global",
+      "time": {
+        "created": 1770291059000,
+        "updated": 1770291089000
+      },
+      "title": "[redacted:session-title:ses_meterlanea0000000000000000]",
+      "tokens": {
+        "cache": {
+          "read": 120000,
+          "write": 0
+        },
+        "input": 6000,
+        "output": 600,
+        "reasoning": 5
+      },
+      "version": "1.1.51"
+    },
+    "messages": [
+      {
+        "info": {
+          "id": "msg_meterprompt100000000000000",
+          "role": "user",
+          "sessionID": "ses_meterlanea0000000000000000",
+          "time": {
+            "created": 1770291059001
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterprompt100000000000000",
+            "messageID": "msg_meterprompt100000000000000",
+            "sessionID": "ses_meterlanea0000000000000000",
+            "text": "[redacted:text:prt_meterprompt100000000000000]",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "info": {
+          "cost": 0,
+          "finish": "stop",
+          "id": "msg_meterreply1000000000000000",
+          "modelID": "big-pickle",
+          "parentID": "msg_meterprompt100000000000000",
+          "providerID": "opencode",
+          "role": "assistant",
+          "sessionID": "ses_meterlanea0000000000000000",
+          "time": {
+            "completed": 1770291059008,
+            "created": 1770291059002
+          },
+          "tokens": {
+            "cache": {
+              "read": 40000,
+              "write": 0
+            },
+            "input": 2000,
+            "output": 200,
+            "reasoning": 2
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterreply1000000000000000",
+            "messageID": "msg_meterreply1000000000000000",
+            "sessionID": "ses_meterlanea0000000000000000",
+            "text": "[redacted:text:prt_meterreply1000000000000000]",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "info": {
+          "cost": 0,
+          "finish": "stop",
+          "id": "msg_meterreply1100000000000000",
+          "modelID": "big-pickle",
+          "parentID": "msg_meterprompt100000000000000",
+          "providerID": "opencode",
+          "role": "assistant",
+          "sessionID": "ses_meterlanea0000000000000000",
+          "time": {
+            "completed": 1770291059009,
+            "created": 1770291059003
+          },
+          "tokens": {
+            "cache": {
+              "read": 80000,
+              "write": 0
+            },
+            "input": 4000,
+            "output": 400,
+            "reasoning": 3
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterreply1100000000000000",
+            "messageID": "msg_meterreply1100000000000000",
+            "sessionID": "ses_meterlanea0000000000000000",
+            "text": "[redacted:text:prt_meterreply1100000000000000]",
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "info": {
+      "cost": 0,
+      "directory": "[redacted:session-directory:ses_meterlaneb0000000000000000]",
+      "id": "ses_meterlaneb0000000000000000",
+      "parentID": "ses_meterroot00000000000000000",
+      "projectID": "global",
+      "time": {
+        "created": 1770291119000,
+        "updated": 1770291149000
+      },
+      "title": "[redacted:session-title:ses_meterlaneb0000000000000000]",
+      "tokens": {
+        "cache": {
+          "read": 180000,
+          "write": 0
+        },
+        "input": 9000,
+        "output": 900,
+        "reasoning": 7
+      },
+      "version": "1.1.51"
+    },
+    "messages": [
+      {
+        "info": {
+          "id": "msg_meterprompt200000000000000",
+          "role": "user",
+          "sessionID": "ses_meterlaneb0000000000000000",
+          "time": {
+            "created": 1770291119001
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterprompt200000000000000",
+            "messageID": "msg_meterprompt200000000000000",
+            "sessionID": "ses_meterlaneb0000000000000000",
+            "text": "[redacted:text:prt_meterprompt200000000000000]",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "info": {
+          "cost": 0,
+          "finish": "stop",
+          "id": "msg_meterreply2000000000000000",
+          "modelID": "big-pickle",
+          "parentID": "msg_meterprompt200000000000000",
+          "providerID": "opencode",
+          "role": "assistant",
+          "sessionID": "ses_meterlaneb0000000000000000",
+          "time": {
+            "completed": 1770291119008,
+            "created": 1770291119002
+          },
+          "tokens": {
+            "cache": {
+              "read": 60000,
+              "write": 0
+            },
+            "input": 3000,
+            "output": 300,
+            "reasoning": 3
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterreply2000000000000000",
+            "messageID": "msg_meterreply2000000000000000",
+            "sessionID": "ses_meterlaneb0000000000000000",
+            "text": "[redacted:text:prt_meterreply2000000000000000]",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "info": {
+          "cost": 0,
+          "finish": "stop",
+          "id": "msg_meterreply2100000000000000",
+          "modelID": "big-pickle",
+          "parentID": "msg_meterprompt200000000000000",
+          "providerID": "opencode",
+          "role": "assistant",
+          "sessionID": "ses_meterlaneb0000000000000000",
+          "time": {
+            "completed": 1770291119009,
+            "created": 1770291119003
+          },
+          "tokens": {
+            "cache": {
+              "read": 120000,
+              "write": 0
+            },
+            "input": 6000,
+            "output": 600,
+            "reasoning": 4
+          }
+        },
+        "parts": [
+          {
+            "id": "prt_meterreply2100000000000000",
+            "messageID": "msg_meterreply2100000000000000",
+            "sessionID": "ses_meterlaneb0000000000000000",
+            "text": "[redacted:text:prt_meterreply2100000000000000]",
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+]

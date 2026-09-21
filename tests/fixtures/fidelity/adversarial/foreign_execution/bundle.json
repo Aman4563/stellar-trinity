@@ -1,0 +1,1 @@
+{"family":"claude_code_jsonl","harness_version":"2.1.158","accompaniment":[],"authorization":{"max_message_chars":100,"max_turns":4,"timeout_seconds":60},"rollout_id":"synthetic-requested-rollout"}

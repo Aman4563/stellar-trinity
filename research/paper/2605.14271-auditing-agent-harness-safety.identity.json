@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2605.14271-auditing-agent-harness-safety",
+  "retained": "2605.14271-auditing-agent-harness-safety.pdf",
+  "rendering": "2605.14271-auditing-agent-harness-safety.md",
+  "content_digest": "957f46e6eee0b9e44b310f60e84698d25ffa3a3c0890ba6b756ccdf921a40723",
+  "rendering_digest": "078bfeb75d83bccf71601f17dc307df339c2bbbee560bd701bb5f721e1810a76",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

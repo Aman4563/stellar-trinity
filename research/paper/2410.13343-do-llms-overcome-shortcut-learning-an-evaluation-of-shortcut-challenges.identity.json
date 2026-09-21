@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2410.13343-do-llms-overcome-shortcut-learning-an-evaluation-of-shortcut-challenges",
+  "retained": "2410.13343-do-llms-overcome-shortcut-learning-an-evaluation-of-shortcut-challenges.pdf",
+  "rendering": "2410.13343-do-llms-overcome-shortcut-learning-an-evaluation-of-shortcut-challenges.md",
+  "content_digest": "bcbe710f3e0567376027d84fe1983b3812620a2790b02c838298ef0a5dd1d0d4",
+  "rendering_digest": "0957bb7284d1f38fce914b16c8d20a2dc45415ae5c579e0d82e1a1fcc83a3ea0",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2602.07150-on-randomness-in-agentic-evals",
+  "retained": "2602.07150-on-randomness-in-agentic-evals.pdf",
+  "rendering": "2602.07150-on-randomness-in-agentic-evals.md",
+  "content_digest": "f89be86da6fae7e2d9e7e393fc10bb36a4a47fde92460f3fa6f3a96d02090e3f",
+  "rendering_digest": "07e41c451fead802fd07c102219b537e13b79d8b046e418370cbaaec489c470e",
+  "deriving_tool": "pdftotext",
+  "deriving_tool_version": "26.09.0"
+}

@@ -1,0 +1,14 @@
+#!/bin/sh
+# Never git add/commit/push/stash/checkout; a hook writes working-tree bytes at most.
+set -u
+cat > /dev/null
+root="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+cd "$root" || exit 0
+if [ ! -f trinity/tools/pipeline.py ]; then
+  echo "trinity gate: trinity/tools/pipeline.py is absent; is the submodule checked out?" >&2
+  exit 0
+fi
+mkdir -p .sentinel || exit 0
+python3 trinity/tools/pipeline.py render-reports ./ > .sentinel/post-merge-reports.txt 2>&1 || true
+grep '^rendered ' .sentinel/post-merge-reports.txt || true
+exit 0

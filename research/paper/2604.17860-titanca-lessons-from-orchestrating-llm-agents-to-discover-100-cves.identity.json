@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2604.17860-titanca-lessons-from-orchestrating-llm-agents-to-discover-100-cves",
+  "retained": "2604.17860-titanca-lessons-from-orchestrating-llm-agents-to-discover-100-cves.pdf",
+  "rendering": "2604.17860-titanca-lessons-from-orchestrating-llm-agents-to-discover-100-cves.md",
+  "content_digest": "13aab39460d9112ecfc73f0243b0639507f4601ffaa6980177899be844294b82",
+  "rendering_digest": "ea0aa5e7cc772446da53091a3d564cf668960bb66c7caa006b6360b7ffcc3415",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

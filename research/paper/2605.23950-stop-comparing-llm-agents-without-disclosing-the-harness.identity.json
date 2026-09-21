@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2605.23950-stop-comparing-llm-agents-without-disclosing-the-harness",
+  "retained": "2605.23950-stop-comparing-llm-agents-without-disclosing-the-harness.pdf",
+  "rendering": "2605.23950-stop-comparing-llm-agents-without-disclosing-the-harness.md",
+  "content_digest": "4b7b9b46dc076753ad9cfc51f2741d3828cdb1e2fc8848c4dcaa49836f4072dc",
+  "rendering_digest": "1bd244f981474de6592bdebd21e9a41275e84702d977eff42773bb87e7191e1f",
+  "deriving_tool": "pdftotext",
+  "deriving_tool_version": "26.09.0"
+}

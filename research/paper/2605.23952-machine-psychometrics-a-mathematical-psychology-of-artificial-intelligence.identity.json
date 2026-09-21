@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2605.23952-machine-psychometrics-a-mathematical-psychology-of-artificial-intelligence",
+  "retained": "2605.23952-machine-psychometrics-a-mathematical-psychology-of-artificial-intelligence.pdf",
+  "rendering": "2605.23952-machine-psychometrics-a-mathematical-psychology-of-artificial-intelligence.md",
+  "content_digest": "ca3751656eb2cb980fd1b78dee7a2d0ac882008cb01bb78ff6be7ed44ababf07",
+  "rendering_digest": "109bcef016d0412c844f944ba995f9f4c94f1018e7e6dbcd5de46a894d972025",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.08960-hardening-agent-benchmarks-with-adversarial-hacker-fixer-loops",
+  "retained": "2606.08960-hardening-agent-benchmarks-with-adversarial-hacker-fixer-loops.pdf",
+  "rendering": "2606.08960-hardening-agent-benchmarks-with-adversarial-hacker-fixer-loops.md",
+  "content_digest": "9bb9a301ecb8e9e94c0f2b6ffe8b985bcdb2eea08a061680a51c8c305f2ee4fb",
+  "rendering_digest": "cbef6571ad772830fe6ac9af4bbc4fd51f2b5dd272c6f692aeda2b67725b591a",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

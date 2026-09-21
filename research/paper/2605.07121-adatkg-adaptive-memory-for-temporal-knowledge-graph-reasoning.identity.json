@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2605.07121-adatkg-adaptive-memory-for-temporal-knowledge-graph-reasoning",
+  "retained": "2605.07121-adatkg-adaptive-memory-for-temporal-knowledge-graph-reasoning.pdf",
+  "rendering": "2605.07121-adatkg-adaptive-memory-for-temporal-knowledge-graph-reasoning.md",
+  "content_digest": "a7d78837644bc949f56c1934e573d46666a4e632a64dd411706f8e834dc72ea3",
+  "rendering_digest": "f561627ff3497bda7b34964a0bdd81c5153a5efc2162e8ebd1274281b9b3de9f",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

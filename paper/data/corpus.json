@@ -1,0 +1,52 @@
+{
+  "artifact": "trinity-position-paper-anchor-corpus",
+  "version": "1.2.0",
+  "generated_for": "paper/latex/main.tex and paper/main.md",
+  "integrity_note": "Every anchor row is transcribed from the checked-in research/ corpus of the Trinity repository. Aggregates below are computed by paper/data/corpus.py from the anchors array alone; the self-check asserts equality between recomputed values and the aggregates block and exits non-zero on any disagreement. No aggregate in the paper may be hand-edited here. The self-check verifies arithmetic consistency only; it cannot validate the selection of anchors or their theme assignments, which are editorial inputs. Each anchor also carries the source class it was admitted under and the content digest recorded in the matching research/ manifest; the self-check asserts the two agree and exits non-zero on any disagreement.",
+  "selection_note": "This corpus is a curated motivating reading list assembled while the standard was being designed, not a survey sample. The themes were co-constructed with the paper's principles, so theme-to-principle alignment is a design fact, not independent evidence. Inclusion criterion: papers judged directly relevant to the epistemics of benchmark difficulty by the authors during drafting. Reconciliation rule: the anchors array mirrors the checked-in research/ corpus one row per .md and .pdf pair, normalized by arXiv identifier, so an on-disk paper absent from this artifact or an anchor absent from disk is a reconcile defect; the 1.1.0 round added the one on-disk paper (2606.19149) the 1.0.0 round had omitted.",
+  "anchors": [
+    {"arxiv_id": "2410.13343", "title": "Do LLMs Overcome Shortcut Learning? An Evaluation of Shortcut Challenges in Large Language Models", "first_author": "Yuan", "year": 2024, "theme": "shortcut_learning", "source_class": "paper", "content_digest": "bcbe710f3e0567376027d84fe1983b3812620a2790b02c838298ef0a5dd1d0d4"},
+    {"arxiv_id": "2501.13956", "title": "Zep: A Temporal Knowledge Graph Architecture for Agent Memory", "first_author": "Rasmussen", "year": 2025, "theme": "temporal_memory_and_forgetting", "source_class": "paper", "content_digest": "d26f7eb599540e8b14d75e7efda58a07661abbb1b864e58323b5768475a15d42"},
+    {"arxiv_id": "2506.12034", "title": "Human-like Forgetting Curves in Deep Neural Networks", "first_author": "Kline", "year": 2025, "theme": "temporal_memory_and_forgetting", "source_class": "paper", "content_digest": "8d5d2701d40f34587d7c40b597c628444b49a812b82626feb31875bdc20a84b8"},
+    {"arxiv_id": "2601.11868", "title": "Terminal-Bench: Benchmarking Agents on Hard, Realistic Tasks in Command Line Interfaces", "first_author": "Merrill", "year": 2026, "theme": "benchmark_construction_and_hardening", "source_class": "paper", "content_digest": "4430e04a507b2442bb7b24a88899b750948fa0a6b3bbc33a8d541d6d4debcc1e"},
+    {"arxiv_id": "2603.20899", "title": "Mitigating Shortcut Reasoning in Language Models: A Gradient-Aware Training Approach", "first_author": "Cao", "year": 2026, "theme": "shortcut_learning", "source_class": "paper", "content_digest": "41ad4adc10ad0bba322ee4f1c0f7d8b87221f65c03792f59f287e4d1b6ea4d72"},
+    {"arxiv_id": "2604.11544", "title": "Time is Not a Label: Continuous Phase Rotation for Temporal Knowledge Graphs and Agentic Memory", "first_author": "Li", "year": 2026, "theme": "temporal_memory_and_forgetting", "source_class": "paper", "content_digest": "914b24d01814f9b8ed4c8c7c146edcf16de45fa74c5914d0981bc183add330d9"},
+    {"arxiv_id": "2604.15302", "title": "Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations", "first_author": "Gupta", "year": 2026, "theme": "judge_reliability", "source_class": "paper", "content_digest": "fcd2c0245491df8eb9bfd869cebc52f29b5945019bc8799701f9e8e07d7eeef4"},
+    {"arxiv_id": "2604.17860", "title": "TitanCA: Lessons from Orchestrating LLM Agents to Discover 100+ CVEs", "first_author": "Zhang", "year": 2026, "theme": "agentic_case_studies", "source_class": "paper", "content_digest": "13aab39460d9112ecfc73f0243b0639507f4601ffaa6980177899be844294b82"},
+    {"arxiv_id": "2605.07121", "title": "AdaTKG: Adaptive Memory for Temporal Knowledge Graph Reasoning", "first_author": "Lee", "year": 2026, "theme": "temporal_memory_and_forgetting", "source_class": "paper", "content_digest": "a7d78837644bc949f56c1934e573d46666a4e632a64dd411706f8e834dc72ea3"},
+    {"arxiv_id": "2605.14271", "title": "Auditing Agent Harness Safety", "first_author": "Liu", "year": 2026, "theme": "reward_integrity", "source_class": "paper", "content_digest": "957f46e6eee0b9e44b310f60e84698d25ffa3a3c0890ba6b756ccdf921a40723"},
+    {"arxiv_id": "2605.18663", "title": "GIM: Evaluating Models via Tasks that Integrate Multiple Cognitive Domains", "first_author": "Patel", "year": 2026, "theme": "benchmark_construction_and_hardening", "source_class": "paper", "content_digest": "00b76a03b4159a1199c0bfb1d52b95abd9f70791e58abe73089744003fa38203"},
+    {"arxiv_id": "2605.23952", "title": "Machine Psychometrics: A Mathematical Psychology of Artificial Intelligence", "first_author": "Bogdan", "year": 2026, "theme": "measurement_theory", "source_class": "paper", "content_digest": "ca3751656eb2cb980fd1b78dee7a2d0ac882008cb01bb78ff6be7ed44ababf07"},
+    {"arxiv_id": "2606.01286", "title": "BenchEvolver: Frontier Task Synthesis via Solution-Centric Evolution", "first_author": "Wu", "year": 2026, "theme": "benchmark_construction_and_hardening", "source_class": "paper", "content_digest": "35d239716ec97af90b0f5025059150e4a931ae940d4543b00752c69b4872f30c"},
+    {"arxiv_id": "2606.07616", "title": "Item Response Scaling Laws: A Measurement Theory Approach for Efficient and Generalizable Neural Scaling Estimation", "first_author": "Truong", "year": 2026, "theme": "measurement_theory", "source_class": "paper", "content_digest": "5f04cb80bea301d4d64dc2b2236d2d66f81b5d3c2c9a2500a709f20478f2a8b0"},
+    {"arxiv_id": "2606.07805", "title": "Beyond Goodhart's Law: A Dynamic Benchmark for Evaluating Compliance in Multi-Agent Systems", "first_author": "Zhao", "year": 2026, "theme": "reward_integrity", "source_class": "paper", "content_digest": "cb6698d7015def4750ac1aab59ba2e35ac030996a4992cb5e46157e08636fcb9"},
+    {"arxiv_id": "2606.08960", "title": "Hardening Agent Benchmarks with Adversarial Hacker-Fixer Loops", "first_author": "Zhong", "year": 2026, "theme": "benchmark_construction_and_hardening", "source_class": "paper", "content_digest": "9bb9a301ecb8e9e94c0f2b6ffe8b985bcdb2eea08a061680a51c8c305f2ee4fb"},
+    {"arxiv_id": "2606.12087", "title": "FORT-Searcher: Synthesizing Shortcut-Resistant Search Tasks for Training Deep Search Agents", "first_author": "Deng", "year": 2026, "theme": "benchmark_construction_and_hardening", "source_class": "paper", "content_digest": "c3fe450e5ba24166d7ac9741b039ed5937aa219165d15305c9b71a838597b44b"},
+    {"arxiv_id": "2606.13685", "title": "The Coin Flip Judge? Reliability and Bias in LLM-as-a-Judge Evaluation", "first_author": "Yagubyan", "year": 2026, "theme": "judge_reliability", "source_class": "paper", "content_digest": "d022715ff32d8296e3b8ecc984e3e7c87f02b7f361d0c99a0e235e821e3fb885"},
+    {"arxiv_id": "2606.18284", "title": "Breaking the Solver Bottleneck: Training Task Generators at the Learnable Frontier", "first_author": "Wolf", "year": 2026, "theme": "benchmark_construction_and_hardening", "source_class": "paper", "content_digest": "d50cc54f7463145a3aa730635351fdd131b9ae083c00dd562b64ea43284259f2"},
+    {"arxiv_id": "2606.19149", "title": "OpenAnt: LLM-Powered Vulnerability Discovery Through Code Decomposition, Adversarial Verification, and Dynamic Testing", "first_author": "Korda", "year": 2026, "theme": "agentic_case_studies", "source_class": "paper", "content_digest": "44db75a63fc191bbb0a761c30b4213ddc8d6c5cec99f5365993c4bfd5994366a"},
+    {"arxiv_id": "2606.19544", "title": "Reliability without Validity: A Systematic, Large-Scale Evaluation of LLM-as-a-Judge Models Across Agreement, Consistency, and Bias", "first_author": "Norman", "year": 2026, "theme": "judge_reliability", "source_class": "paper", "content_digest": "faacf577921eab7a38f1a7b04899b6db5acbb17434ff78cb8f9f25e3b87f3230"}
+  ],
+  "aggregates": {
+    "total_anchors": 21,
+    "theme_count": 7,
+    "theme_counts": {
+      "shortcut_learning": 2,
+      "temporal_memory_and_forgetting": 4,
+      "benchmark_construction_and_hardening": 6,
+      "judge_reliability": 3,
+      "agentic_case_studies": 2,
+      "reward_integrity": 2,
+      "measurement_theory": 2
+    },
+    "largest_theme": "benchmark_construction_and_hardening",
+    "largest_theme_count": 6,
+    "second_largest_theme_count": 4,
+    "largest_theme_margin": 2,
+    "year_counts": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 18
+    }
+  }
+}

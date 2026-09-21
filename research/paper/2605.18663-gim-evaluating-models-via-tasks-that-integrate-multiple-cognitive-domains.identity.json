@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2605.18663-gim-evaluating-models-via-tasks-that-integrate-multiple-cognitive-domains",
+  "retained": "2605.18663-gim-evaluating-models-via-tasks-that-integrate-multiple-cognitive-domains.pdf",
+  "rendering": "2605.18663-gim-evaluating-models-via-tasks-that-integrate-multiple-cognitive-domains.md",
+  "content_digest": "00b76a03b4159a1199c0bfb1d52b95abd9f70791e58abe73089744003fa38203",
+  "rendering_digest": "8fe6da80b029eb05b8c22b8fefac7e369b3062e3e570d73ff9cb128460d73ed7",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

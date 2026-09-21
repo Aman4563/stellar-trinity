@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2501.13956-zep-a-temporal-knowledge-graph-architecture-for-agent-memory",
+  "retained": "2501.13956-zep-a-temporal-knowledge-graph-architecture-for-agent-memory.pdf",
+  "rendering": "2501.13956-zep-a-temporal-knowledge-graph-architecture-for-agent-memory.md",
+  "content_digest": "d26f7eb599540e8b14d75e7efda58a07661abbb1b864e58323b5768475a15d42",
+  "rendering_digest": "b9ffa2ea4c91d40362bafc01f4e38a1c73fdd5aedff9a18030e37703dcbae0ed",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

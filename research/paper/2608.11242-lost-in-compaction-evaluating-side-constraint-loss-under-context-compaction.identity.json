@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2608.11242-lost-in-compaction-evaluating-side-constraint-loss-under-context-compaction",
+  "retained": "2608.11242-lost-in-compaction-evaluating-side-constraint-loss-under-context-compaction.pdf",
+  "rendering": "2608.11242-lost-in-compaction-evaluating-side-constraint-loss-under-context-compaction.md",
+  "content_digest": "18b54e80b2047d27d97724feb0537399f5d7ebd6ff74610edcc8c47555747be5",
+  "rendering_digest": "754b3fb357e2093b2f9f87a6302dd78975680f0bc42045aa306feca665e28dab",
+  "deriving_tool": "pdftotext",
+  "deriving_tool_version": "26.09.0"
+}

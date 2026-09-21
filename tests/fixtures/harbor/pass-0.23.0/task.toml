@@ -1,0 +1,57 @@
+schema_version = "1.4"
+[task]
+name = "ethara/argos-1213efa9"
+version = "1.0.0"
+uuid_v5 = "1213efa9-10ca-4f0e-bb27-2f6012454212"
+project_id = "Argos-001"
+authors = [
+  { name = "gautam.dubey", email = "gautam.dubey@ethara.ai" },
+  { name = "prakhar.singh", email = "prakhar.singh@ethara.ai" },
+  { name = "abhishek.verma", email = "abhishek.verma@ethara.ai" },
+  { name = "ronak.sharma", email = "ronak.sharma@ethara.ai" },
+]
+keywords = ["python", "issue-resolving", "scapy"]
+
+
+[metadata]
+difficulty = "medium"
+category = "bug_fixing"
+
+[verifier]
+# V-001: neither the verifier nor the agent needs external network. The verifier
+# runs the deterministic post-fix test cmd offline; the agent solves under the
+# harness full egress block (only LLM API endpoints reachable). Both are "none",
+# which seals oracle-solution exfiltration via either the verifier or agent path.
+network_mode = "no-network"
+timeout_sec = 7200.0
+
+[agent]
+network_mode = "no-network"
+timeout_sec = 14400.0
+
+[environment]
+build_timeout_sec = 1800.0
+cpus = 8
+memory_mb = 12288
+storage_mb = 10240
+gpus = 0
+
+[upstream_provenance]
+# P-001: every task is a repackaged public pull request, so origin is "derived"
+# and provenance_date is the contamination reasoning boundary - the date the fix
+# became public. A model trained before it cannot have memorised the repair.
+origin = "derived"
+provenance_date = "2022-02-01"
+source_kind = "public_repository"
+upstream_benchmark = "multi-swe-bench"
+upstream_toolchain = "github.com/Ethara-Ai/multi-swe-bench@447ddbd639e4ec60376282ccee32ad1ab60afb69"
+license = "GPL-2.0"
+modifications = ["harbor-repackage", "rubric-added", "instruction-rewritten"]
+
+[upstream_provenance.source]
+# canonical_repo is the host's current identity, which survives renames;
+# tests/config.json keeps the name as mined and can therefore go stale.
+canonical_repo = "secdev/scapy"
+base_commit = "adaa923db82be88e5bd84b4046faa23f2b69d0ed"
+pull_request = 3461
+event_timestamp = "2021-11-26T22:13:09Z"

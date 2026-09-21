@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2609.09218-the-double-measurement-confound-in-agent-benchmarks-de-scaffolding-ground-truth-scoring",
+  "retained": "2609.09218-the-double-measurement-confound-in-agent-benchmarks-de-scaffolding-ground-truth-scoring.pdf",
+  "rendering": "2609.09218-the-double-measurement-confound-in-agent-benchmarks-de-scaffolding-ground-truth-scoring.md",
+  "content_digest": "f2a9c07c3b268841ed2918d55dff138547ec6b938f2335f0ef68c51903c5679b",
+  "rendering_digest": "7ffd3fda4155372d39d77dab89ee447607f43664c5233fa3e7914759a99fcc12",
+  "deriving_tool": "pdftotext",
+  "deriving_tool_version": "26.09.0"
+}

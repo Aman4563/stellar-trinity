@@ -1,0 +1,64 @@
+#!/bin/sh
+# Never git add/commit/push/stash/checkout; a hook writes working-tree bytes at most.
+# Trinity pre-push hook. Installed by `trinity/tools/gate.py install`, which every gate
+# preflight runs, into .githooks/pre-push at the parent root with core.hooksPath set to
+# .githooks. Install refreshes this file whenever it drifts from trinity/templates/pre-push.
+#
+# It runs the same gate entry point a pasted contract runs, in check mode, so it writes
+# no receipt and mints no disposition record. It does append any sabotage-class refusal it
+# observes to the sentinel ledger under .sentinel/, under the per-commit attempt identity
+# local-<HEAD sha>, so pushing the same commit twice is one attempt and a refusal the hook
+# sees is the same observation the report moment would make; the repeat counter that caps
+# a disposition at BLOCK reads these appends. A BLOCK ceiling refuses the push. The hook
+# is a candidate qualification surface and never the decision: continuous integration
+# re-runs the same command on the pushed commit under branch protection and refuses what
+# this hook would have refused. Bypassing the hook, by a verification-skipping push flag,
+# by unsetting or redirecting core.hooksPath, or by editing this file, is a sabotage
+# attempt that no contract, instrument, root report, or lane may recommend. The lawful
+# path past a refusal is to fix the finding the gate names, or to rerun the preflight so
+# install refreshes a hook that has drifted from its template.
+set -u
+root="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 1
+cd "$root" || exit 1
+if [ ! -f trinity/tools/pipeline.py ]; then
+  echo "trinity gate: trinity/tools/pipeline.py is absent; is the submodule checked out?" >&2
+  exit 1
+fi
+if [ ! -f trinity/tools/gate.py ]; then
+  echo "trinity gate: trinity/tools/gate.py is absent; is the submodule checked out?" >&2
+  exit 1
+fi
+mkdir -p .sentinel || exit 1
+# Many clones push into one main. The push carries only what this clone reconciled: the
+# overflow past the sample ceiling routed into delivery/, both lane READMEs and every root
+# report rendered from the tree, and every queue stream extending, never rewriting, the
+# stream the remote already holds. A tree that differs from its own reconciliation is
+# refused here and named again by continuous integration on the pushed commit.
+python3 trinity/tools/pipeline.py reconcile ./ --check > .sentinel/pre-push-reconcile.txt 2>&1
+if [ $? -ne 0 ]; then
+  echo "trinity gate: the tree is not reconciled; run python3 trinity/tools/pipeline.py reconcile ./ and commit the result (see .sentinel/pre-push-reconcile.txt)" >&2
+  exit 1
+fi
+while read -r _local_ref _local_sha _remote_ref remote_sha; do
+  if [ "$_local_sha" != "0000000000000000000000000000000000000000" ] && [ "$_local_sha" != "$(git rev-parse HEAD)" ]; then
+    echo "trinity gate: the pushed commit is not the reconciled HEAD; push the commit this clone reconciled" >&2
+    exit 1
+  fi
+  case "$remote_sha" in
+    ""|0000000000000000000000000000000000000000) continue ;;
+  esac
+  if git cat-file -e "$remote_sha^{commit}" 2>/dev/null; then
+    python3 trinity/tools/pipeline.py verify ./ --accepted "$remote_sha" > .sentinel/pre-push-streams.txt 2>&1 || {
+      echo "trinity gate: a queue stream the remote already holds was rewritten; only appends are lawful (see .sentinel/pre-push-streams.txt)" >&2
+      exit 1
+    }
+  fi
+done
+python3 trinity/tools/gate.py ./ --instrument CRUCIBLE --moment report --check --json > .sentinel/pre-push.json 2>.sentinel/pre-push.err
+status=$?
+case "$status" in
+  0) exit 0 ;;
+  2) echo "trinity gate: HOLD ceiling; push allowed, disposition stays capped" >&2; exit 0 ;;
+  3) echo "trinity gate: BLOCK ceiling; push refused (see .sentinel/pre-push.json)" >&2; exit 1 ;;
+  *) echo "trinity gate: could not run (exit $status; see .sentinel/pre-push.err); push refused. Fix the named finding or rerun the preflight so trinity/tools/gate.py install refreshes this hook; never bypass it" >&2; exit 1 ;;
+esac

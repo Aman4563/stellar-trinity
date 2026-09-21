@@ -1,0 +1,149 @@
+# ENGRAM Phase S step 20a elicitation record for the work `main` of the Trinity repository.
+# Append-only. Every row is human-attested fact, distinct from measured evidence, and every
+# case fact drawn from a row is labelled attested in study/case.md and study/teaching-note.md.
+# Candidates were drawn from the dated record before each round: git history, CHANGELOG.md,
+# POSTMORTEM.md, FEEDBACK.md, and Ethara-Orion-Quality-Assessment.md. Timestamps are the
+# scribe's UTC clock at the boundary of each question batch.
+schema: engram.interview/v1
+work: main
+interviewee: Sarvex Jatasra
+interviewer: ENGRAM scribe, Phase S step 20a
+rounds:
+  - round: 1
+    asked_at: "2026-09-17T08:31:00Z"
+    answered_at: "2026-09-17T08:35:00Z"
+  - round: 2
+    asked_at: "2026-09-17T08:38:00Z"
+    answered_at: "2026-09-17T08:41:00Z"
+  - round: 3
+    asked_at: "2026-09-17T08:42:00Z"
+    answered_at: "2026-09-17T08:44:00Z"
+  - round: 4
+    asked_at: "2026-09-17T08:45:00Z"
+    answered_at: "2026-09-17T08:46:00Z"
+questions:
+  - question_id: Q1
+    coverage_item: protagonist_identity
+    question: "Who is the named protagonist of the case, the person facing the decision? The record shows commits by sarvex (100), jayram-ethara (3), and Sarvex Jatasra (3)."
+    candidates: ["Sarvex Jatasra", "A pseudonym", "Decline"]
+    answer: "Sarvex Jatasra"
+    asked_at: "2026-09-17T08:31:00Z"
+    answered_at: "2026-09-17T08:35:00Z"
+  - question_id: Q2
+    coverage_item: protagonist_mandate
+    question: "What is the protagonist's role and mandate at Ethara AI with respect to Trinity?"
+    candidates: ["Founder, sole maintainer", "Lead engineer", "Research lead", "Decline"]
+    answer: "Founder, sole maintainer"
+    asked_at: "2026-09-17T08:31:00Z"
+    answered_at: "2026-09-17T08:35:00Z"
+  - question_id: Q3
+    coverage_item: organizational_context
+    question: "How large was the team working on Trinity at the time of the decision?"
+    candidates: ["One person", "Two to three people", "Four or more", "Decline"]
+    answer: "10K+"
+    asked_at: "2026-09-17T08:31:00Z"
+    answered_at: "2026-09-17T08:35:00Z"
+  - question_id: Q4
+    coverage_item: decision_trigger
+    question: "Which dated event is the live decision the case opens on?"
+    candidates: ["2026-09-17 force-push finding", "2026-09-16 release authority", "2026-09-07 MAESTRO extraction", "2026-09-14 gate inversion"]
+    answer: "Client Feedback"
+    asked_at: "2026-09-17T08:31:00Z"
+    answered_at: "2026-09-17T08:35:00Z"
+  - question_id: Q5
+    coverage_item: options_weighed
+    question: "At the decision instant, which options were on the table? Select every option that was actually considered."
+    candidates: ["Accept the agent's recommendation", "Refuse and add doctrine", "Defer to DEFERRED.md", "Ship a partial fix"]
+    answer: "Accept the agent's recommendation, Refuse and add doctrine, Defer to DEFERRED.md, Ship a partial fix"
+    asked_at: "2026-09-17T08:31:00Z"
+    answered_at: "2026-09-17T08:35:00Z"
+  - question_id: Q6
+    coverage_item: decision_trigger_date
+    question: "Is the client feedback that opens the case the EtharaOrion quality assessment received on 2026-09-16 (30 tasks, 336 rollouts, ten repos, reward integrity named the largest problem), as POSTMORTEM.md records?"
+    candidates: ["Yes, 2026-09-16", "Earlier client review", "Another date"]
+    answer: "Yes, 2026-09-16"
+    asked_at: "2026-09-17T08:38:00Z"
+    answered_at: "2026-09-17T08:41:00Z"
+  - question_id: Q7
+    coverage_item: organizational_context
+    question: "Clarify the Q3 answer 10K+: what does 10K+ count?"
+    candidates: ["Ethara AI headcount", "Coding-agent runs", "Contributors across parent repos", "Decline"]
+    answer: "Ethara AI headcount"
+    asked_at: "2026-09-17T08:38:00Z"
+    answered_at: "2026-09-17T08:41:00Z"
+  - question_id: Q8
+    coverage_item: live_decision
+    question: "At the instant the assessment arrived, what was the decision the protagonist had to make?"
+    candidates: ["Resubmit fast or harden first", "Keep or withdraw the delivery", "Rewrite history or add doctrine", "Who holds release authority"]
+    answer: "Keep or withdraw the delivery"
+    asked_at: "2026-09-17T08:38:00Z"
+    answered_at: "2026-09-17T08:41:00Z"
+  - question_id: Q9
+    coverage_item: constraints_and_stakeholders
+    question: "Which constraints bore on the decision? Select all that applied."
+    candidates: ["Client deadline for resubmission", "Solo maintainer capacity", "Ten parent repos already at BLOCK or HOLD", "Contract doctrine that publication is a human act", "Reputation with the client"]
+    answer: "Client deadline for resubmission, Solo maintainer capacity, Ten parent repos already at BLOCK or HOLD, Contract doctrine that publication is a human act, Reputation with the client"
+    asked_at: "2026-09-17T08:38:00Z"
+    answered_at: "2026-09-17T08:41:00Z"
+  - question_id: Q10
+    coverage_item: pressures_at_decision_instant
+    question: "What was the strongest pressure to take the fast path?"
+    candidates: ["1 Client timeline", "2 Revenue or contract value", "3 Sunk cost of thirty tasks", "4 None, the slow path was obvious"]
+    answer: "1, 2 and 3"
+    asked_at: "2026-09-17T08:38:00Z"
+    answered_at: "2026-09-17T08:41:00Z"
+  - question_id: Q11
+    coverage_item: aftermath
+    question: "What did the protagonist decide about the pushed delivery? The dated record shows the gates were hardened 2026-09-16 and 2026-09-17 and a resubmission plan in POSTMORTEM.md section 10."
+    candidates: ["Kept it standing, hardened, plan resubmission", "Withdrew it, then hardened", "Kept it, patched tasks only", "Decision still open"]
+    answer: "Kept it standing, hardened, plan resubmission"
+    asked_at: "2026-09-17T08:42:00Z"
+    answered_at: "2026-09-17T08:44:00Z"
+  - question_id: Q12
+    coverage_item: aftermath
+    question: "As of today, 2026-09-17, has a resubmission reached the client?"
+    candidates: ["Not yet", "Partially", "Yes, fully"]
+    answer: "Yes, fully"
+    asked_at: "2026-09-17T08:42:00Z"
+    answered_at: "2026-09-17T08:44:00Z"
+  - question_id: Q13
+    coverage_item: objection_to_lesson
+    question: "Strongest objection to lesson 1, publication must pass through a machine gate and never a human act alone?"
+    candidates: ["A gate the maintainer controls is theater", "Gates slow delivery below client tolerance", "Client did not ask for gates", "None is strong"]
+    answer: "A gate the maintainer controls is theater"
+    asked_at: "2026-09-17T08:42:00Z"
+    answered_at: "2026-09-17T08:44:00Z"
+  - question_id: Q14
+    coverage_item: objection_to_lesson
+    question: "Strongest objection to lesson 2, a typed sign-off is not a sign-off and only a digest-bound signature discharges a gate?"
+    candidates: ["Digests bind bytes, not judgment", "Ceremony cost exceeds solo capacity", "Clients accept typed sign-offs elsewhere", "None is strong"]
+    answer: "Digests bind bytes, not judgment"
+    asked_at: "2026-09-17T08:42:00Z"
+    answered_at: "2026-09-17T08:44:00Z"
+  - question_id: Q15
+    coverage_item: objection_to_lesson
+    question: "Strongest objection to lesson 3, a finding is preserved and never moved out of the scan window by rewriting history?"
+    candidates: ["Preserving a false positive misleads forever", "Force-push is a normal git workflow", "Remediation record needs a second principal that does not exist", "None is strong"]
+    answer: "Preserving a false positive misleads forever"
+    asked_at: "2026-09-17T08:42:00Z"
+    answered_at: "2026-09-17T08:44:00Z"
+  - question_id: Q16
+    coverage_item: aftermath_date
+    question: "On what date did the full resubmission reach the client?"
+    candidates: ["2026-09-17", "2026-09-16", "Decline"]
+    answer: "2026-09-17"
+    asked_at: "2026-09-17T08:45:00Z"
+    answered_at: "2026-09-17T08:46:00Z"
+coverage_checklist:
+  protagonist_identity: covered
+  protagonist_mandate: covered
+  organizational_context: covered
+  decision_trigger: covered
+  decision_trigger_date: covered
+  live_decision: covered
+  options_weighed: covered
+  constraints_and_stakeholders: covered
+  pressures_at_decision_instant: covered
+  aftermath: covered
+  aftermath_date: covered
+  objection_to_lesson: covered

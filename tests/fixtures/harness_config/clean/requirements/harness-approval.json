@@ -1,0 +1,6 @@
+{
+  "approvedBy": "operator",
+  "authorizesCompaction": false,
+  "minMessageChars": 30000,
+  "minHeadroomTokens": 168000
+}

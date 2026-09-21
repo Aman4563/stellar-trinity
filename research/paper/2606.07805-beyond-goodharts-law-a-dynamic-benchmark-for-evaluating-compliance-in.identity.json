@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.07805-beyond-goodharts-law-a-dynamic-benchmark-for-evaluating-compliance-in",
+  "retained": "2606.07805-beyond-goodharts-law-a-dynamic-benchmark-for-evaluating-compliance-in.pdf",
+  "rendering": "2606.07805-beyond-goodharts-law-a-dynamic-benchmark-for-evaluating-compliance-in.md",
+  "content_digest": "cb6698d7015def4750ac1aab59ba2e35ac030996a4992cb5e46157e08636fcb9",
+  "rendering_digest": "ed94bed78e7799d4f076a896e5f0b64f0800a499f44aa7e25b175ff940fc9834",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}

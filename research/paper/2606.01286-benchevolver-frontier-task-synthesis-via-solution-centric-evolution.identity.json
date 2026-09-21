@@ -1,0 +1,11 @@
+{
+  "schema": "engram.identity/v1",
+  "source_class": "paper",
+  "stem": "2606.01286-benchevolver-frontier-task-synthesis-via-solution-centric-evolution",
+  "retained": "2606.01286-benchevolver-frontier-task-synthesis-via-solution-centric-evolution.pdf",
+  "rendering": "2606.01286-benchevolver-frontier-task-synthesis-via-solution-centric-evolution.md",
+  "content_digest": "35d239716ec97af90b0f5025059150e4a931ae940d4543b00752c69b4872f30c",
+  "rendering_digest": "abd2ad0b071e224896f84cf1145a2888c8ff87c910760ecfea6db65455b48d37",
+  "deriving_tool": "unestablished",
+  "deriving_tool_version": "unestablished"
+}
