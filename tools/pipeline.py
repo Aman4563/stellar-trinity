@@ -1053,6 +1053,20 @@ class Reconciliation:
     findings: tuple[Finding, ...]
 
 
+def _declared_submodule(root: Path, name: str) -> bool:
+    """True when ``.gitmodules`` declares a submodule whose path is ``name``."""
+
+    try:
+        text = (root / ".gitmodules").read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return False
+    for line in text.splitlines():
+        key, _, value = line.partition("=")
+        if key.strip().lower() == "path" and value.strip().strip("/") == name:
+            return True
+    return False
+
+
 def _residents(root: Path) -> list[Resident]:
     _, records = walk_queue(root)
     latest = _tolerant_latest(records)
@@ -1193,6 +1207,13 @@ def reconcile(root: Path, *, check: bool = False) -> Reconciliation:
     for lane_root in LANE_DIRS:
         directory = root / lane_root
         if not directory.is_dir():
+            continue
+        # A lane that is a submodule and is not checked out is an existing but
+        # empty directory: its content is absent, not drifted. Continuous
+        # integration checks the parent out with submodules disabled, and reading
+        # that absence as drift would refuse every run. An empty lane that is not
+        # a declared submodule still owes a rendered README and is left alone.
+        if not any(directory.iterdir()) and _declared_submodule(root, lane_root.name):
             continue
         members = [
             item
