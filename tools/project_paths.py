@@ -17,7 +17,30 @@ class ProjectPathError(ValueError):
 
 
 def invocation_root() -> Path:
-    """Capture the trusted orchestrator's process working directory."""
+    """Capture the trusted orchestrator's process working directory.
+
+    When TRINITY_AUTHORITY_ROOT is set, use that directory instead of the current
+    working directory. This lets a hook or wrapper script invoke gate.py from
+    inside an audited candidate while telling Trinity the true governance authority
+    lives outside the candidate (where the gate policy legitimately resides). The
+    operator is responsible for setting this to a trusted directory; unset falls
+    back to the historical CWD behaviour so existing invocations are unaffected.
+    """
+
+    env_override = os.environ.get("TRINITY_AUTHORITY_ROOT")
+    if env_override:
+        try:
+            root = Path(env_override).resolve(strict=True)
+            metadata = root.lstat()
+        except OSError as exc:
+            raise ProjectPathError(
+                f"TRINITY_AUTHORITY_ROOT is unavailable: {exc}"
+            ) from exc
+        if not stat.S_ISDIR(metadata.st_mode) or stat.S_ISLNK(metadata.st_mode):
+            raise ProjectPathError(
+                "TRINITY_AUTHORITY_ROOT must be a real directory"
+            )
+        return root
 
     try:
         root = Path.cwd().resolve(strict=True)
