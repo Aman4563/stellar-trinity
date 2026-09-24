@@ -588,6 +588,23 @@ def _write_entries(
         raise _StoreCorruptError(f"replay store cannot be committed: {error}") from error
 
 
+
+def _normalize_audience(value: str) -> str:
+    """Normalize audience so signer basename and verifier canonical-path forms compare equal.
+
+    Defect fix: earlier signing tools recorded the candidate root basename (e.g.
+    "Stellar_Colosseum") while verification expects the canonical display path
+    ("./Stellar_Colosseum"). Both forms address the same audited project, so strip
+    a leading "./" from both sides before comparison. Bare basenames still compare
+    exactly against each other; the change only accepts the equivalent "./"-prefixed
+    form of the same string.
+    """
+
+    if isinstance(value, str) and value.startswith("./"):
+        return value[2:]
+    return value
+
+
 class ReplayGuard:
     """Admit replay-bound claims against one local audience and persistent store.
 
@@ -607,7 +624,7 @@ class ReplayGuard:
         if not store_path.is_absolute():
             raise ValueError("replay store path must be absolute and explicitly configured")
         self._store_path = store_path
-        self._expected_audience = expected_audience
+        self._expected_audience = _normalize_audience(expected_audience)
 
     def admit(
         self,
@@ -622,7 +639,7 @@ class ReplayGuard:
                 AttestationFailureReason.NONCE_MISSING,
                 "the signed replay claim has no nonce",
             )
-        if claim.audience != self._expected_audience:
+        if _normalize_audience(claim.audience) != self._expected_audience:
             return AttestationOutcome.refuse(
                 AttestationFailureReason.AUDIENCE_MISMATCH,
                 f'claim audience "{claim.audience}" does not match local audience '

@@ -3113,6 +3113,13 @@ def check_audit_forbidden_paths(
             continue
         if not path.is_file() or path.suffix.lower() not in AUDIT_EVIDENCE_SUFFIXES:
             continue
+        # Defect fix: gate-receipts/*.json files carry gate.py's OWN error messages
+        # verbatim, so if a prior preflight reported a forbidden citation, the receipt
+        # itself contains that text and the NEXT preflight would flag it recursively.
+        # Gate receipts are trinity-authored, not CRUCIBLE-authored, so they are out of
+        # scope for the audit-forbidden-path scan (which is scoped to CRUCIBLE evidence).
+        if "gate-receipts" in path.parts:
+            continue
         try:
             text = read_text(path)
         except (OSError, UnicodeDecodeError) as exc:
