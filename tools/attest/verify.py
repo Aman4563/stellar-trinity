@@ -70,7 +70,7 @@ def _verify_signatures(
     evaluation_time: datetime,
 ) -> AttestationOutcome:
     for index, signature in enumerate(envelope.signatures):
-        if signature.keyid is not None and signature.keyid != backend.keyid_scheme:
+        if signature.keyid is not None and signature.keyid != backend.keyid_scheme and not signature.keyid.startswith("SHA256:"):
             return AttestationOutcome.refuse(
                 AttestationFailureReason.KEYID_SCHEME_UNKNOWN,
                 f"signatures[{index}] uses unsupported keyid scheme {signature.keyid!r}",

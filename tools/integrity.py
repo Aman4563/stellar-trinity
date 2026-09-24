@@ -4173,8 +4173,14 @@ def check_execution_attestations(
                     "EXECUTION_ATTESTATION_REFUSED",
                 )
             )
-        else:
-            envelopes.append(entry)
+            continue
+        # Defect fix: skip git-only files (.gitkeep, .gitignore) and any file that is
+        # not a DSSE envelope. Execution envelopes are named "<sha256>.dsse"; a .gitkeep
+        # exists only to preserve the empty directory in git and must not be scanned as
+        # an envelope.
+        if entry.name in {".gitkeep", ".gitignore"} or entry.suffix != ".dsse":
+            continue
+        envelopes.append(entry)
     if not envelopes:
         return out
     if evaluation_time is None:

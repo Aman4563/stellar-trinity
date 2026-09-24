@@ -54,7 +54,27 @@ while read -r _local_ref _local_sha _remote_ref remote_sha; do
     }
   fi
 done
-python3 trinity/tools/gate.py ./ --instrument CRUCIBLE --moment report --check --json > .sentinel/pre-push.json 2>.sentinel/pre-push.err
+# When TRINITY_AUTHORITY_ROOT is set, invoke gate.py from that directory
+# so invocation_root() returns the authority; pass the candidate as a
+# path relative to the authority. Unset falls back to the historical
+# CWD=candidate invocation with --root ./ that existing operators rely on.
+if [ -n "${TRINITY_AUTHORITY_ROOT:-}" ] && [ -d "$TRINITY_AUTHORITY_ROOT" ]; then
+  gate_authority_abs="$(cd "$TRINITY_AUTHORITY_ROOT" && pwd -P)"
+  candidate_abs="$(pwd -P)"
+  case "$candidate_abs/" in
+    "$gate_authority_abs"/*)
+      gate_rel_root="./${candidate_abs#$gate_authority_abs/}"
+      gate_python_path="$candidate_abs/trinity/tools/gate.py"
+      ( cd "$gate_authority_abs" && python3 "$gate_python_path" "$gate_rel_root" --instrument CRUCIBLE --moment report --check --json ) > .sentinel/pre-push.json 2>.sentinel/pre-push.err
+      ;;
+    *)
+      # Authority is set but candidate is not under it; fall back to CWD-based invocation.
+      python3 trinity/tools/gate.py ./ --instrument CRUCIBLE --moment report --check --json > .sentinel/pre-push.json 2>.sentinel/pre-push.err
+      ;;
+  esac
+else
+  python3 trinity/tools/gate.py ./ --instrument CRUCIBLE --moment report --check --json > .sentinel/pre-push.json 2>.sentinel/pre-push.err
+fi
 status=$?
 case "$status" in
   0) exit 0 ;;

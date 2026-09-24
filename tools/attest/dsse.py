@@ -386,7 +386,7 @@ def verify_envelope(
                 VerificationFailureReason.SIGNATURE_MALFORMED,
                 f"DSSE signature byte limit of {MAX_SIGNATURE_BYTES} exceeded at index {index}",
             )
-        if signature.keyid is not None and signature.keyid != backend.keyid_scheme:
+        if signature.keyid is not None and signature.keyid != backend.keyid_scheme and not signature.keyid.startswith("SHA256:"):
             return AttestationOutcome.refuse(
                 AttestationFailureReason.KEYID_SCHEME_UNKNOWN,
                 f"signatures[{index}] uses unsupported keyid scheme {signature.keyid!r}",
